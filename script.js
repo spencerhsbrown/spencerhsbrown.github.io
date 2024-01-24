@@ -1,65 +1,81 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const cursorBall = document.getElementById('cursor-ball');
-    const centeredText = document.getElementById('centered-text');
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+const particles = [];
+let frameCount = 0;
 
-    // Constants for physics simulation
-    const friction = 0.1;
-    const spring = 0.05;
+// Set canvas size
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    // Initial position of the ball
-    let x = window.innerWidth / 2;
-    let y = window.innerHeight / 2;
-
-    // Initial velocity
-    let vx = 0;
-    let vy = 0;
-
-    // Initial mouse coordinates
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-
-    function updateBallPosition() {
-        // Calculate the force towards the cursor position
-        const targetX = mouseX;
-        const targetY = mouseY;
-
-        const forceX = (targetX - x) * spring;
-        const forceY = (targetY - y) * spring;
-
-        // Apply the force to the velocity
-        vx += forceX;
-        vy += forceY;
-
-        // Apply friction to slow down the velocity
-        vx *= 1 - friction;
-        vy *= 1 - friction;
-
-        // Update the position
-        x += vx;
-        y += vy;
-
-        // Update the ball position
-        cursorBall.style.left = `${x}px`;
-        cursorBall.style.top = `${y}px`;
-
-        // Update centered text based on cursor position
-        const offsetX = x - targetX;
-        const offsetY = y - targetY;
-        console.log(`Offset from cursor: (${offsetX.toFixed(2)}, ${offsetY.toFixed(2)})`);
-
-        // Request the next animation frame
-        requestAnimationFrame(updateBallPosition);
+// Particle class
+class Particle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 5 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
     }
 
-    // Function to update mouse coordinates
-    function updateMousePosition(e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.size > 0.2) this.size -= 0.05;
     }
 
-    // Event listener to update mouse coordinates on mouse move
-    document.addEventListener('mousemove', updateMousePosition);
+    draw() {
+        ctx.fillStyle = 'white';
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    }
+}
 
-    // Initial call to start the animation loop
-    updateBallPosition();
+// Create particles at regular intervals
+function createParticles(x, y) {
+    for (let i = 0; i < 5; i++) {
+        particles.push(new Particle(x, y));
+    }
+}
+
+// Track mouse position
+let mouseX = canvas.width / 2;
+let mouseY = canvas.height / 2;
+
+// Update mouse position on mousemove
+window.addEventListener('mousemove', (e) => {
+    mouseX = e.x;
+    mouseY = e.y;
 });
+
+// Animation loop
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    frameCount++;
+
+    if (frameCount % 5 === 0) {
+        // Create particles every 60 frames (adjust as needed)
+        createParticles(mouseX, mouseY);
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+        // Update particle position based on mouse position
+        particles[i].update(mouseX, mouseY);
+        particles[i].draw();
+
+        if (particles[i].size <= 0.2) {
+            particles.splice(i, 1);
+            i--;
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
