@@ -55,10 +55,6 @@ window.addEventListener('mousemove', (e) => {
     mouseX = e.x;
     mouseY = e.y;
 });
-window.addEventListener('ontouchmove', (e) => {
-    mouseX = e.x;
-    mouseY = e.y;
-});
 //rezises the canvas if the window has been resized
 window.addEventListener("resize", function(){
     canvas.width = window.innerWidth;
