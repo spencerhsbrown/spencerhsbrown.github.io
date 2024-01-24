@@ -21,18 +21,21 @@ class Particle {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if (this.size > 0.2) this.size -= 0.03;
+        if (this.size > 0.2) this.size -= 0.02;
     }
 
     draw() {
-        ctx.fillStyle = 'white';
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
+    const pixelationFactor = 10;
+    ctx.save();
+    ctx.fillStyle = 'black';
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
     }
 }
 
@@ -65,7 +68,7 @@ function animate() {
 
     frameCount++;
 
-    if (frameCount % 5 === 0) {
+    if (frameCount % 7 === 0) {
         // Create particles every 60 frames (adjust as needed)
         createParticles(mouseX, mouseY);
     }
