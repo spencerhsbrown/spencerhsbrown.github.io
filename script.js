@@ -55,7 +55,7 @@ window.addEventListener('mousemove', (e) => {
     mouseX = e.x;
     mouseY = e.y;
 });
-window.addEventListener('onclick', (e) => {
+window.addEventListener('ontouchmove', (e) => {
     mouseX = e.x;
     mouseY = e.y;
 });
