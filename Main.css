@@ -25,6 +25,7 @@ body, html {
     z-index: 2;
 }
 canvas {
+    background-image: linear-gradient(to right, red , yellow);
     position: absolute;
     top: 0;
     left: 0;

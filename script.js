@@ -21,7 +21,7 @@ class Particle {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if (this.size > 0.2) this.size -= 0.05;
+        if (this.size > 0.2) this.size -= 0.03;
     }
 
     draw() {
@@ -53,6 +53,12 @@ window.addEventListener('mousemove', (e) => {
     mouseY = e.y;
 });
 
+//rezises the canvas if the window has been resized
+window.addEventListener("resize", function(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
 // Animation loop
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -74,7 +80,6 @@ function animate() {
             i--;
         }
     }
-
     requestAnimationFrame(animate);
 }
 
