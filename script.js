@@ -15,6 +15,9 @@ class Particle {
         this.size = Math.random() * 5 + 1;
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
+        this.r = Math.floor(Math.random() * 255);
+        this.g = Math.floor(Math.random() * 255);
+        this.b = Math.floor(Math.random() * 255);
     }
 
     update() {
@@ -25,10 +28,9 @@ class Particle {
     }
 
     draw() {
-    const pixelationFactor = 10;
     ctx.save();
     ctx.fillStyle = 'black';
-    ctx.strokeStyle = 'white';
+    ctx.strokeStyle = `rgb(${this.r},${this.g},${this.b})`;
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
