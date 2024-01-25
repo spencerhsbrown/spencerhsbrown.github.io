@@ -38,3 +38,6 @@ header a {
 header a:hover {
     color: #b2dfdb;
 }
+#selected{
+    color: grey;
+}
