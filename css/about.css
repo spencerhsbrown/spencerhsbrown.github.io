@@ -40,10 +40,20 @@ header a:hover {
     color: #b2dfdb;
     text-decoration:underline;
 }
-.infoPage{
+.gridContainer{
+    display: grid;
+    gap: 1vh 1vw;
     color:rgb(223, 223, 223);
-    font-size: 50px;
-    padding: 10%;
+    justify-content: space-evenly;
+    grid-template-columns: auto auto;
+}
+.gridContent{
+    width: 40vw;
+    height: 200px;
+    background-color: rgb(83, 83, 145);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
 }
 #selected{
     color: grey;
