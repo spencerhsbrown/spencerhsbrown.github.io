@@ -98,7 +98,7 @@ function animate() {
 
     plane.position.x = 3;
 
-    const moveSpeed = 0.6; // Adjust the speed as needed
+    const moveSpeed = 0.4; // Adjust the speed as needed
 
     if (moveForward) {
         controls.getObject().translateZ(-moveSpeed);
