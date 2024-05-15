@@ -7,20 +7,54 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+uniform vec2 resolution;
 
-camera.position.z = 5;
+//the signed distance field function
+//used in the ray march loop
+float sdf(vec3 p) {
 
-function animate() {
-	requestAnimationFrame( animate );
-
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
-
-	renderer.render( scene, camera );
+    //a sphere of radius 1.
+    return length( p ) - 1.;
 }
 
-animate();
+void main( void ) {
+
+//1 : retrieve the fragment's coordinates
+	vec2 uv = ( gl_FragCoord.xy / resolution.xy ) * 2.0 - 1.0;
+	//preserve aspect ratio
+	uv.x *= resolution.x / resolution.y;
+
+
+//2 : camera position and ray direction
+	vec3 pos = vec3( 0.,0.,-3.);
+	vec3 dir = normalize( vec3( uv, 1. ) );
+
+
+//3 : ray march loop
+    //ip will store where the ray hits the surface
+	vec3 ip;
+
+	//variable step size
+	float t = 0.0;
+	for( int i = 0; i < 32; i++) {
+
+        //update position along path
+        ip = pos + dir * t;
+
+        //gets the shortest distance to the scene
+		float temp = sdf( ip );
+
+        //break the loop if the distance was too small
+        //this means that we are close enough to the surface
+		if( temp < 0.01 ) break;
+
+		//increment the step along the ray path
+		t += temp;
+
+	}
+
+//4 : apply color to this fragment
+    //we use the result position as the color
+	gl_FragColor = vec4( ip, 1.0);
+
+}
