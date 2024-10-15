@@ -51,3 +51,4 @@ const animate = () => {
 
     controls.update();
 }
+animate();
