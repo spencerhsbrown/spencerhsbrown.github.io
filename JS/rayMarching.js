@@ -76,7 +76,7 @@ void main() {
 `;
 
 const fragCode = `
-precision mediump float:
+precision mediump float;
 
 in vec2 vUv;
 
