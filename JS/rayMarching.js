@@ -3,6 +3,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+
+
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -35,43 +37,6 @@ const nearPlaneWidth = camera.near * Math.tan(THREE.MathUtils.degToRad(camera.fo
 const nearPlaneHeight = nearPlaneWidth / camera.aspect;
 rayMarchPlane.scale.set(nearPlaneWidth, nearPlaneHeight, 1);
 
-scene.add(rayMarchPlane)
-
-let cameraForwardPos = new THREE.Vector3(0, 0, -1);
-const VECTOR3ZERO = new THREE.Vector3(0, 0, 0);
-
-let time = Date.now();
-
-const animate = () => {
-    requestAnimationFrame(animate)
-
-    cameraForwardPos = camera.position.clone().add(camera.getWorldDirection(VECTOR3ZERO).multiplyScalar(camera.near));
-    rayMarchPlane.position.copy(cameraForwardPos);
-    rayMarchPlane.rotation.copy(camera.rotation);
-
-    renderer.render(scene, camera);
-
-    uniforms.u_time.value = (Date.now() - time) / 1000;
-
-    controls.update();
-}
-animate();
-
-
-const vertCode = `
-out vec2 vUv;
-
-void main() {
-    vec4 worldPos = modelViewMatrix * vec4(position, 1.0);
-    vec3 viewDir = normalize(-worldPos.xyz);
-
-    gl_Position = projectionMatrix * worldPos;
-
-    vUv = uv;
-}
-`;
-
-const fragCode = `
 
 // Uniforms
 const uniforms = {
@@ -97,6 +62,20 @@ const uniforms = {
 };
 material.uniforms = uniforms;
 
+const vertCode = `
+out vec2 vUv;
+
+void main() {
+    vec4 worldPos = modelViewMatrix * vec4(position, 1.0);
+    vec3 viewDir = normalize(-worldPos.xyz);
+
+    gl_Position = projectionMatrix * worldPos;
+
+    vUv = uv;
+}
+`;
+
+const fragCode = `
 precision mediump float:
 
 in vec2 vUv;
@@ -206,7 +185,29 @@ void main() {
 
     }
 }
-`
+`;
 
 material.vertexShader = vertCode;
 material.fragmentShader = fragCode;
+
+scene.add(rayMarchPlane)
+
+let cameraForwardPos = new THREE.Vector3(0, 0, -1);
+const VECTOR3ZERO = new THREE.Vector3(0, 0, 0);
+
+let time = Date.now();
+
+const animate = () => {
+    requestAnimationFrame(animate)
+
+    cameraForwardPos = camera.position.clone().add(camera.getWorldDirection(VECTOR3ZERO).multiplyScalar(camera.near));
+    rayMarchPlane.position.copy(cameraForwardPos);
+    rayMarchPlane.rotation.copy(camera.rotation);
+
+    renderer.render(scene, camera);
+
+    uniforms.u_time.value = (Date.now() - time) / 1000;
+
+    controls.update();
+}
+animate();
