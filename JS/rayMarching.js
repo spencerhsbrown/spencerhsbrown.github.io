@@ -1,7 +1,7 @@
 // following https://medium.com/@nabilnymansour/ray-marching-in-three-js-66b03e3a6af2
 
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as THREE from 'https://esm.sh/three';
+import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitControls";;
 
 
 
