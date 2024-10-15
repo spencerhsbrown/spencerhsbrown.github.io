@@ -108,11 +108,11 @@ float smin(float a, float b, float k) {
 
 float scene(vec3 p){
 
-    float sphere1Dis = distance(p, vec3(cos(u_time), sin(u_time), 0)) - 1.0;
+    float sphere1Dis = distance(p, vec3(cos(u_time), sin(u_time), 0)) - 1.;
 
     float sphere2Dis = distance(p, vec3(cos(u_time), sin(u_time), 0)) - 0.75;
 
-    return smin(sphere1Dis, sphere2Dis, 0.5);
+    //return smin(sphere1Dis, sphere2Dis, 0.5);
 }
 
 float rayMarch(vec3 ro, vec3 rd)
