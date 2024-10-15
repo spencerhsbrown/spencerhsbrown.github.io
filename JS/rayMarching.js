@@ -19,5 +19,5 @@ controls.minDistance = 2;
 controls.enableDamping = true;
 
 const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position(1, 1, 1);
+light.position.set(1, 1, 1);
 scene.add(light);
