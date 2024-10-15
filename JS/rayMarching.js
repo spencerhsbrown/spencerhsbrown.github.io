@@ -175,7 +175,7 @@ void main() {
     if (disTravelled >= u_maxDis) {
         gl_FragColor = vec4(u_clearColor, 1);
     } else {
-        float dotNL = dot(n, u_lightDir, 1);
+        float dotNL = dot(n, u_lightDir);
         float diff = max(dotNL, 0.0) * u_diffIntesity;
         float spec = pow(diff, u_shininess) * u_specIntensity;
         float ambient = u_ambientIntesity;
