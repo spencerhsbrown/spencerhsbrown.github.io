@@ -14,7 +14,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const backgroundColor = new THREE.Color(0x99bbff)
+const backgroundColor = new THREE.Color(0x000000)
 renderer.setClearColor(backgroundColor, 1);
 
 const controls = new OrbitControls(camera, renderer.domElement);
