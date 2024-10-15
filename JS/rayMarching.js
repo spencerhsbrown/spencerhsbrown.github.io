@@ -207,3 +207,6 @@ void main() {
     }
 }
 `
+
+material.vertexShader = vertCode;
+material.fragmentShader = fragCode;
