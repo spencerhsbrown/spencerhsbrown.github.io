@@ -170,7 +170,7 @@ void main() {
 
     vec3 hp = ro + disTravelled * rd;
 
-    vec 3 n = normal(hp);
+    vec3 n = normal(hp);
 
     if (disTravelled >= u_maxDis) {
         gl_FragColor = vec4(u_clearColor, 1);
