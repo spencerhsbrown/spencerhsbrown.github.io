@@ -22,7 +22,7 @@ controls.maxDistance = 10;
 controls.minDistance = 2;
 controls.enableDamping = true;
 
-const light = new THREE.DirectionalLight(0xffffff, 1);
+const light = new THREE.DirectionalLight(0x3399ff, 1);
 light.position.set(1, 1, 1);
 scene.add(light);
 
