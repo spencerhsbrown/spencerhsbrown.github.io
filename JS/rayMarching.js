@@ -14,7 +14,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const backgroundColor = new THREE.Color(0x00ff44)
+const backgroundColor = new THREE.Color(0x000000)
 renderer.setClearColor(backgroundColor, 1);
 
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -107,17 +107,12 @@ float smin(float a, float b, float k) {
 }
 
 float scene(vec3 p){
-    vec3 zz = vec3(0,0,0);
-    float sphere1Dis = distance(p, vec3(0,0,0)) - 0.2;
+
+    float sphere1Dis = distance(p, vec3(0,0,0)) - 1.;
 
     float sphere2Dis = distance(p, vec3(sin(u_time), cos(u_time), 0)) - 0.5;
 
-    vec3 q = abs(p) - zz;
-    float boxDis = length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
-
-    //return smin(sphere1Dis, boxDis, 0.2);
-
-    return boxDis;
+    return smin(sphere1Dis, sphere2Dis, 0.75);
 }
 
 float rayMarch(vec3 ro, vec3 rd)
@@ -139,22 +134,16 @@ float rayMarch(vec3 ro, vec3 rd)
 }
 
 vec3 sceneCol(vec3 p){
-    vec3 zz = vec3(0,0,0);
-    float sphere1Dis = distance(p, vec3(0,0,0)) - 0.2;
+    float sphere1Dis = distance(p, vec3(0,0,0)) - 1.;
     float sphere2Dis = distance(p, vec3(sin(u_time), cos(u_time), 0)) - 0.75;
 
-    vec3 q = abs(p) - zz;
-    float boxDis = length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
-
-
     float k = 0.5;
-    float h = clamp(0.5 + 0.5 * (boxDis) / k, 0.0, 1.0);
+    float h = clamp(0.5 + 0.5 * (sphere2Dis - sphere1Dis) / k, 0.0, 1.0);
 
     vec3 color1 = vec3(1, 0, 1);
     vec3 color2 = vec3(0, 1, 0);
 
-    return color2;
-    //return mix(color1, color2, h);
+    return mix(color1, color2, h);
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
