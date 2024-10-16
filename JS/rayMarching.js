@@ -153,7 +153,7 @@ vec3 sceneCol(vec3 p){
     vec3 color1 = vec3(1, 0, 1);
     vec3 color2 = vec3(0, 1, 0);
 
-    return color1;
+    return boxDis;
     //return mix(color1, color2, h);
 }
 
