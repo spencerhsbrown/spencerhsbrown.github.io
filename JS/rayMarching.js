@@ -145,8 +145,8 @@ float rayMarch(vec3 ro, vec3 rd)
 }
 
 vec3 sceneCol(vec3 p){
-    float sphere1Dis = distance(p, vec3(0,0,0)) - 1.;
-
+    //float sphere1Dis = distance(p, vec3(0,0,0)) - 1.;
+    float boxDis = sdBox(p, vec3(0,0,0));
 
     //float k = 0.5;
     //float h = clamp(0.5 + 0.5 * (sphere1Dis) / k, 0.0, 1.0);
