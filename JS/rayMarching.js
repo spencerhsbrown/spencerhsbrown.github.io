@@ -106,11 +106,6 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float sdBox( vec3 p, vec3 b )
-{
-  return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
-}
-
 float scene(vec3 p){
     vec3 zz = vec3(0,0,0);
     float sphere1Dis = distance(p, vec3(0,0,0)) - 0.2;
