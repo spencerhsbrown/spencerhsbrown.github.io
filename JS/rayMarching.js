@@ -120,7 +120,7 @@ float scene(vec3 p){
 
     //return sphere1Dis;
 
-    return smin(sphere1Dis, boxDis, 0.5);
+    return smin(sphere1Dis, boxDis, 0.9);
 
     //return boxDis;
 }
