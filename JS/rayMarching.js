@@ -134,7 +134,7 @@ float rayMarch(vec3 ro, vec3 rd)
 }
 
 vec3 sceneCol(vec3 p){
-    float sphere1Dis = distance(p, vec3(cos(u_time), sin(u_time), 0)) - 1.;
+    float sphere1Dis = distance(p, 10, 5) - 1.;
     float sphere2Dis = distance(p, vec3(sin(u_time), cos(u_time), 0)) - 0.75;
 
     float k = 0.5;
