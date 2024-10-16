@@ -114,7 +114,7 @@ float sdBox( vec3 p, vec3 b )
 
 float scene(vec3 p){
 
-    float boxDis = sdBox(p, vec3(0,0,0))
+    float boxDis = sdBox(p, vec3(0,0,0));
 
     //float sphere1Dis = distance(p, vec3(0,0,0)) - 1.;
     //return sphere1Dis;
