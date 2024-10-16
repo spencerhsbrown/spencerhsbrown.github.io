@@ -113,7 +113,7 @@ float scene(vec3 p){
     float sphere2Dis = distance(p, vec3(sin(u_time), cos(u_time), 0)) - 0.5;
 
     vec3 q = abs(p) - zz;
-    float boxDis = length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0) - 0.5;
+    float boxDis = length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
 
     return smin(sphere1Dis, boxDis, 0.2);
 }
@@ -142,7 +142,7 @@ vec3 sceneCol(vec3 p){
     float sphere2Dis = distance(p, vec3(sin(u_time), cos(u_time), 0)) - 0.75;
 
     vec3 q = abs(p) - zz;
-    float boxDis = length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0) - 0.5;
+    float boxDis = length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
 
 
     float k = 0.5;
