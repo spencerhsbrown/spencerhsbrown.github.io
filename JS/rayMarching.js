@@ -116,7 +116,7 @@ float scene(vec3 p){
 
     float boxDis = sdBox(p, vec3(1,1,1));
 
-    float sphere1Dis = distance(p, vec3(sin(u_time),cos(u_time*1.2),0)) - 1.;
+    float sphere1Dis = distance(p,vec3(0,3,0)) - 1.;
 
     //return sphere1Dis;
 
