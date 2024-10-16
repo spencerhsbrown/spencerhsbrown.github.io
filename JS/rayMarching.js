@@ -106,13 +106,21 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
+float sdBox( vec3 p, vec3 b )
+{
+  vec3 q = abs(p) - b;
+  return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
+}
+
 float scene(vec3 p){
 
     float sphere1Dis = distance(p, vec3(0,0,0)) - 1.;
 
     float sphere2Dis = distance(p, vec3(sin(u_time), cos(u_time), 0)) - 0.5;
 
-    return smin(sphere1Dis, sphere2Dis, 0.75);
+    float boxDis = sdBox(p, vec3(0,0,0));
+
+    return smin(sphere1Dis, boxDis, 0.75);
 }
 
 float rayMarch(vec3 ro, vec3 rd)
