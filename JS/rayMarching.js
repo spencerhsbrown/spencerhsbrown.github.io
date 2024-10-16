@@ -139,8 +139,7 @@ vec3 sceneCol(vec3 p){
     float k = 0.5;
     float h = clamp(0.5 + 0.5 * (sphere1Dis) / k, 0.0, 1.0);
 
-    vec3 color1 = vec3(1, 0, 1);
-    vec3 color2 = vec3(0, 1, 0);
+    vec3 color1 = vec3(0, 1, 0);
 
 
 
