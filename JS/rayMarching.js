@@ -121,8 +121,6 @@ float scene(vec3 p){
 
     //return smin(sphere1Dis, sphere2Dis, 0.75);
 
-    console.log(boxDis);
-
     return boxDis;
 }
 
