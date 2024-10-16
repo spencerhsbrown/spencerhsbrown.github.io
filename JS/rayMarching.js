@@ -146,7 +146,7 @@ float rayMarch(vec3 ro, vec3 rd)
 vec3 sceneCol(vec3 p){
     float boxDis = sdBox(p, vec3(1,1,1));
 
-    float sphere1Dis = distance(p,vec3(2,0,0)) - 1.;
+    float sphere1Dis = distance(p,vec3(0,2,0)) - 1.;
 
     float colormix = smin(sphere1Dis, boxDis, 0.5);
 
