@@ -108,7 +108,7 @@ float smin(float a, float b, float k) {
 
 float scene(vec3 p){
 
-    float sphere1Dis = distance(p, 10) - 1.;
+    float sphere1Dis = distance(p, 10, 5) - 1.;
 
     float sphere2Dis = distance(p, vec3(sin(u_time), cos(u_time), 0)) - 0.5;
 
