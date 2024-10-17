@@ -154,7 +154,7 @@ vec3 sceneCol(vec3 p){
     vec3 color2 = vec3(1,0,0);
 
 
-    return mix(color2,color1, colormix);
+    return mix(color1,color2, colormix);
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
