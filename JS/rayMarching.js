@@ -106,27 +106,22 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float sdSphere( vec3 p, float s )
+float sdBoxFrame( vec3 p, vec3 b, float e )
 {
-  return length(p)-s;
-}
+    p = abs(p  )-b;
+    vec3 q = abs(p+e)-e;
 
-float repeated( vec3 p, float s )
-{
-    vec3 id = round(p/s);
-    vec2 r = p - s*id;
-    return sdf(r, id);
+        return min(min(
+        length(max(vec3(p.x,q.y,q.z),0.0))+min(max(p.x,max(q.y,q.z)),0.0),
+        length(max(vec3(q.x,p.y,q.z),0.0))+min(max(q.x,max(p.y,q.z)),0.0)),
+        length(max(vec3(q.x,q.y,p.z),0.0))+min(max(q.x,max(q.y,p.z)),0.0));
 }
 
 float scene(vec3 p){
 
-    float sphere1Dis = repeated(p, 2.0)
+    float boxy = sdBoxFrame(p, vec3(1,1,1), 1.0);
 
-    return sphere1Dis;
-
-    //return smin(sphere1Dis, boxDis, 0.1);
-
-    //return boxDis;
+    return boxy;
 }
 
 float rayMarch(vec3 ro, vec3 rd)
