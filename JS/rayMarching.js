@@ -106,20 +106,21 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float sdSphere( vec3 p)
+float sdSphere( vec3 p, float s )
 {
-  return length(p)-1.0;
+  return length(p)-s;
 }
 
 float repeated( vec3 p, float s )
 {
-    vec2 r = p - s*round(p/s);
-    return sdSphere(r);
+    vec3 id = round(p/s);
+    vec2 r = p - s*id;
+    return sdf(r, id);
 }
 
 float scene(vec3 p){
 
-    float sphere1Dis = repeated(p, 2.0);
+    float sphere1Dis = repeated(p, 2.0)
 
     return sphere1Dis;
 
