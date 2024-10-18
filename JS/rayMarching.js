@@ -108,7 +108,7 @@ float smin(float a, float b, float k) {
 
 float sdBox( vec3 p, vec3 b )
 {
-  return length(p.xz-c.xy)-c.z;
+  return length(p.xz-b.xy)-b.z;
 }
 
 float scene(vec3 p){
