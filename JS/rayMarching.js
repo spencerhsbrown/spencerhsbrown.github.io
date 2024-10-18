@@ -119,7 +119,7 @@ float scene(vec3 p){
 
     //return sphere1Dis;
 
-    return smin(sphere1Dis, boxDis, 0.9);
+    return smin(sphere1Dis, boxDis, 0.1);
 
     //return boxDis;
 }
@@ -147,13 +147,13 @@ vec3 sceneCol(vec3 p){
 
     float sphere1Dis = distance(p,vec3(0,sin(u_time)*2.0,0)) - 1.;
 
-    float colormix = smin(sphere1Dis, boxDis, 0.9);
+    float colormix = smin(sphere1Dis, boxDis, 0.1);
 
     vec3 color1 = vec3(0, 1, 0);
     vec3 color2 = vec3(1,0,0);
 
 
-    return mix(color2,color1, colormix);
+    return mix(color1,color2, colormix);
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
