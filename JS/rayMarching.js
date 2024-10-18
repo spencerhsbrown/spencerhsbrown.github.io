@@ -106,20 +106,24 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float sdBox( vec3 p, vec3 b )
+float sdSphere( vec3 p, float s )
 {
-  return length(p.xz-b.xy)-b.z;
+  return length(p)-s;
+}
+
+float repeated( vec3 p )
+{
+    p.x = p.x - round(p.x);
+    return sdSphere(p, 2.0);
 }
 
 float scene(vec3 p){
 
-    float boxDis = sdBox(p, vec3(1,1,1));
+    float sphere1Dis = repeated(p);
 
-    float sphere1Dis = distance(p,vec3(sin(u_time)*2.0,0,0)) - 1.;
+    return sphere1Dis;
 
-    //return sphere1Dis;
-
-    return smin(sphere1Dis, boxDis, 0.1);
+    //return smin(sphere1Dis, boxDis, 0.1);
 
     //return boxDis;
 }
@@ -143,17 +147,17 @@ float rayMarch(vec3 ro, vec3 rd)
 }
 
 vec3 sceneCol(vec3 p){
-    float boxDis = sdBox(p, vec3(1,1,1));
+    //float boxDis = sdBox(p, vec3(1,1,1));
 
-    float sphere1Dis = distance(p,vec3(0,sin(u_time)*2.0,0)) - 1.;
+    //float sphere1Dis = distance(p,vec3(0,sin(u_time)*2.0,0)) - 1.;
 
-    float colormix = smin(sphere1Dis, boxDis, 0.1);
+    //float colormix = smin(sphere1Dis, boxDis, 0.1);
 
     vec3 color1 = vec3(0, 1, 0);
     vec3 color2 = vec3(1,0,0);
 
 
-    return mix(color1,color2, colormix);
+    return color1;
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
