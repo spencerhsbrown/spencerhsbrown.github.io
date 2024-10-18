@@ -119,7 +119,7 @@ float sdBoxFrame( vec3 p, vec3 b, float e )
 
 float scene(vec3 p){
 
-    float boxy = sdBoxFrame(p, vec3(1,1,1), 1.0);
+    float boxy = sdBoxFrame(p, vec3(0.5,0.3,0.5), 0.025);
 
     return boxy;
 }
