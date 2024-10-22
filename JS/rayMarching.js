@@ -120,7 +120,7 @@ float sdBoxFrame( vec3 p, vec3 b, float e )
 float scene(vec3 p){
 
     float boxy = sdBoxFrame(p, vec3(0.5,0.3,0.5), 0.025);
-    float sphere1Dis = distance(p,vec3(0,sin(u_time)*2.0,0)) - 0.25;
+    float sphere1Dis = distance(p,vec3(0,sin(u_time)*2.0,0)) - 0.5;
 
     float combinedShapes = smin(sphere1Dis, boxy, 0.1);
 
