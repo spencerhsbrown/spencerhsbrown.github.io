@@ -120,8 +120,11 @@ float sdBoxFrame( vec3 p, vec3 b, float e )
 float scene(vec3 p){
 
     float boxy = sdBoxFrame(p, vec3(0.5,0.3,0.5), 0.025);
+    float sphere1Dis = distance(p,vec3(0,sin(u_time)*2.0,0)) - 1.;
 
-    return boxy;
+    float combinedShapes = smin(sphere1Dis, boxy, 0.1);
+
+    return combinedShapes;
 }
 
 float rayMarch(vec3 ro, vec3 rd)
@@ -143,11 +146,11 @@ float rayMarch(vec3 ro, vec3 rd)
 }
 
 vec3 sceneCol(vec3 p){
-    //float boxDis = sdBox(p, vec3(1,1,1));
+    //float boxy = sdBoxFrame(p, vec3(0.5,0.3,0.5), 0.025);
 
     //float sphere1Dis = distance(p,vec3(0,sin(u_time)*2.0,0)) - 1.;
 
-    //float colormix = smin(sphere1Dis, boxDis, 0.1);
+    //float colormix = smin(sphere1Dis, boxy, 0.1);
 
     vec3 color1 = vec3(0, 1, 0);
     vec3 color2 = vec3(1,0,0);
