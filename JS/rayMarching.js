@@ -40,7 +40,7 @@ rayMarchPlane.scale.set(nearPlaneWidth, nearPlaneHeight, 1);
 
 // Uniforms
 const uniforms = {
-    u_eps: { value: 0.001 },
+    u_epsilonValue: { value: 0.001 },
     u_maxDis: { value: 1000 },
     u_maxSteps: { value: 100 },
 
@@ -82,7 +82,7 @@ in vec2 vUv;
 
 uniform vec3 u_clearColor;
 
-uniform float u_eps;
+uniform float u_epsilonValue;
 uniform float u_maxDis;
 uniform int u_maxSteps;
 
@@ -127,22 +127,22 @@ float scene(vec3 p){
     return combinedShapes;
 }
 
-float rayMarch(vec3 ro, vec3 rd)
+float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 {
-    float d = 0.;
-    float cd;
-    vec3 p;
+    float totalDistance = 0.;  // total distance travelled
+    float currentDistance; // current scene distance
+    vec3 currentPosition; // current position of ray
 
     for (int i = 0; i < u_maxSteps; ++i) {
-        p = ro + d * rd;
-        cd = scene(p);
+        currentPosition = rayOrigin + totalDistance * rayDirection;
+        currentDistance = scene(p);
 
-        if (cd < u_eps || d >= u_maxDis) break;
+        if (currentDistance < u_epsilonValue || totalDistance >= u_maxDis) break;
 
-        d += cd;
+        totalDistance += currentDistance;
     }
 
-    return d;
+    return totalDistance;
 }
 
 vec3 sceneCol(vec3 p){
@@ -153,7 +153,6 @@ vec3 sceneCol(vec3 p){
     //float colormix = smin(sphere1Dis, boxy, 0.1);
 
     vec3 color1 = vec3(0, 1, 0);
-    vec3 color2 = vec3(1,0,0);
 
 
     return color1;
@@ -165,7 +164,7 @@ vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
     vec3 e;
     for (int i = 0; i < 4; i++) {
         e = 0.5773 * (2.0 * vec3((((i + 3) >> 1) & 1), ((i >> 1) & 1), (i & 1)) - 1.0);
-        n += e * scene(p + e * u_eps);
+        n += e * scene(p + e * u_epsilonValue);
     }
     return normalize(n);
 }
@@ -174,14 +173,14 @@ void main() {
 
     vec2 uv = vUv.xy;
 
-    vec3 ro = u_camPos;
-    vec3 rd = (u_camInvProjMat * vec4(uv * 2. - 1., 0, 1)).xyz;
-    rd = (u_camToWorldMat * vec4(rd, 0)).xyz;
-    rd = normalize(rd);
+    vec3 rayOrigin = u_camPos;
+    vec3 rayDirection = (u_camInvProjMat * vec4(uv * 2. - 1., 0, 1)).xyz;
+    rayDirection = (u_camToWorldMat * vec4(rd, 0)).xyz;
+    rayDirection = normalize(rayDirection);
 
-    float disTravelled = rayMarch(ro, rd);
+    float disTravelled = rayMarch(rayOrigin, rayDirection);
 
-    vec3 hp = ro + disTravelled * rd;
+    vec3 hp = rayOrigin + disTravelled * rayDirection;
 
     vec3 n = normal(hp);
 
