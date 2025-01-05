@@ -152,7 +152,7 @@ float interesectionBlend(vec3 currentPosition) {
     float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
     float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
 
-    float threshold = 0.2;
+    float threshold = 0.4;
     return smoothstep(-threshold, threshold, abs(boxy-sphere1Dis));
 }
 
