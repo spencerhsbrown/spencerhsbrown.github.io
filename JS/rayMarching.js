@@ -147,7 +147,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
     return totalDistance;
 }
 
-float intersectionBlend(vec3 currentPosition) {
+float interesectionBlend(vec3 currentPosition) {
     float origin = 0.;
     float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
     float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
