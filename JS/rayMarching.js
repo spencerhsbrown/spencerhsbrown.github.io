@@ -147,17 +147,21 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
     return totalDistance;
 }
 
-vec3 sceneCol(vec3 p){
-    //float boxy = sdBoxFrame(p, vec3(0.5,0.3,0.5), 0.025);
+float intersectionBlend(vec3 currentPosition) {
+    float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
+    float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
 
-    //float sphere1Dis = distance(p,vec3(0,sin(u_time)*2.0,0)) - 1.;
+    float threshold = 0.2;
+    return smoothstep(-threshold, threshold, abs(boxy-sphere1Dis));
+}
 
-    //float colormix = smin(sphere1Dis, boxy, 0.1);
+vec3 sceneCol(vec3 currentPosition){
 
-    vec3 color1 = vec3(0, 1, 0);
+    vec boxColor = vec3(1.0,0.0,0.0);
+    vec3 sphereColor = vec3(0.0,0.0,1.0);
 
-
-    return color1;
+    float blendFactor = interesectionBlend(currentPosition);
+    return mix(sphereColor, boxColor, blendFactor);
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
