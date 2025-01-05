@@ -180,9 +180,9 @@ void main() {
 
     float disTravelled = rayMarch(rayOrigin, rayDirection);
 
-    vec3 hp = rayOrigin + disTravelled * rayDirection;
+    vec3 hitPosition = rayOrigin + disTravelled * rayDirection;
 
-    vec3 n = normal(hp);
+    vec3 n = normal(hitPosition);
 
     if (disTravelled >= u_maxDis) {
         gl_FragColor = vec4(u_clearColor, 1);
@@ -192,7 +192,7 @@ void main() {
         float spec = pow(diff, u_shininess) * u_specIntensity;
         float ambient = u_ambientIntesity;
 
-        vec3 color = u_lightColor * (sceneCol(hp) * (spec + ambient + diff));
+        vec3 color = u_lightColor * (sceneCol(hitPosition) * (spec + ambient + diff));
         gl_FragColor = vec4(color, 1);
 
     }
