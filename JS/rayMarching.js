@@ -117,10 +117,12 @@ float sdBoxFrame( vec3 p, vec3 b, float e )
         length(max(vec3(q.x,q.y,p.z),0.0))+min(max(q.x,max(q.y,p.z)),0.0));
 }
 
-float scene(vec3 p){
+float scene(vec3 currentPosition){
 
-    float boxy = sdBoxFrame(p, vec3(0.5,0.3,0.5), 0.025);
-    float sphere1Dis = distance(p,vec3(0,sin(u_time)*1.5,0)) - 0.5;
+    float origin = 0.;
+
+    float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
+    float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
 
     float combinedShapes = smin(sphere1Dis, boxy, 0.1);
 
@@ -176,7 +178,7 @@ void main() {
     vec3 rayOrigin = u_camPos;
     vec3 rayDirection = (u_camInvProjMat * vec4(uv * 2. - 1., 0, 1)).xyz;
     rayDirection = (u_camToWorldMat * vec4(rayDirection, 0)).xyz;
-    //rayDirection = normalize(rayDirection);
+    rayDirection = normalize(rayDirection);
 
     float disTravelled = rayMarch(rayOrigin, rayDirection);
 
