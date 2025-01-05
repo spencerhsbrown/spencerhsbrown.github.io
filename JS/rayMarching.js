@@ -135,7 +135,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
     for (int i = 0; i < u_maxSteps; ++i) {
         currentPosition = rayOrigin + totalDistance * rayDirection;
-        currentDistance = scene(p);
+        currentDistance = scene(currentPosition);
 
         if (currentDistance < u_epsilonValue || totalDistance >= u_maxDis) break;
 
