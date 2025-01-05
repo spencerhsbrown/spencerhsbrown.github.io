@@ -176,7 +176,7 @@ void main() {
     vec3 rayOrigin = u_camPos;
     vec3 rayDirection = (u_camInvProjMat * vec4(uv * 2. - 1., 0, 1)).xyz;
     rayDirection = (u_camToWorldMat * vec4(rayDirection, 0)).xyz;
-    rayDirection = normalize(rayDirection);
+    //rayDirection = normalize(rayDirection);
 
     float disTravelled = rayMarch(rayOrigin, rayDirection);
 
