@@ -162,7 +162,7 @@ vec3 sceneCol(vec3 currentPosition){
     vec3 sphereColor = vec3(0.0,0.0,1.0);
 
     float blendFactor = interesectionBlend(currentPosition);
-    return mix(sphereColor, boxColor, blendFactor);
+    return mix(boxColor, sphereColor, blendFactor);
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
