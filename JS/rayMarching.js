@@ -182,12 +182,12 @@ void main() {
 
     vec3 hitPosition = rayOrigin + disTravelled * rayDirection;
 
-    vec3 n = normal(hitPosition);
+    vec3 norm = normal(hitPosition);
 
     if (disTravelled >= u_maxDis) {
         gl_FragColor = vec4(u_clearColor, 1);
     } else {
-        float dotNL = dot(n, u_lightDir);
+        float dotNL = dot(norm, u_lightDir);
         float diff = max(dotNL, 0.0) * u_diffIntesity;
         float spec = pow(diff, u_shininess) * u_specIntensity;
         float ambient = u_ambientIntesity;
