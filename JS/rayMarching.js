@@ -158,7 +158,7 @@ float interesectionBlend(vec3 currentPosition) {
 
 vec3 sceneCol(vec3 currentPosition){
 
-    vec3 boxColor = vec3(1.0,0.0,0.0);
+    vec3 boxColor = vec3(0.0,1.0,0.0);
     vec3 sphereColor = vec3(0.0,0.0,1.0);
 
     float blendFactor = interesectionBlend(currentPosition);
