@@ -113,7 +113,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
 {
      // Calculate the grid index
-    vec3 gridIndex = clamp(floor(p / s) + 0.5), -l, l);
+    vec3 gridIndex = clamp(floor(p / s + 0.5), -l, l);
 
     // Calculate the animated offset
     //sin(gridIndex.x + gridIndex.z + (u_time*3.0)) * 0.2
