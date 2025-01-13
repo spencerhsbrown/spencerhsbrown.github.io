@@ -110,7 +110,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
 
-float opLimitedRepetition(vec3 position, float distanceBetween, vec3 gridSize, float radius, float time)
+float opLimitedRepetition(vec3 p, float s, vec3 l, float radius, float time)
 {
     // Calculate the grid index
     vec3 gridIndex = clamp(round(p / s), -l, l);
