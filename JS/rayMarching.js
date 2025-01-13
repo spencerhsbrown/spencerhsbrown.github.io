@@ -108,12 +108,12 @@ float smin(float a, float b, float k) {
 
 float recursiveSphere(vec3 currentPosition, float radius, int depth)
 {
-    if(depth <= 0) return distance(p, vec3(0.0)) - radius;
+    if(depth <= 0) return distance(currentPosition, vec3(0.0)) - radius;
 
     vec3 newPosition = currentPosition * 2.0 - vec3(1.5,0.0,0.0);
     float child = recusiveSphere(newPosition, radius*0.5,depth-1);
 
-    return min(distance(position, vec3(0.0))-radius,child);
+    return min(distance(currentPosition, vec3(0.0))-radius,child);
 }
 
 float scene(vec3 currentPosition){
