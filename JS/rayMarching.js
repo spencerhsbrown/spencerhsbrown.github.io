@@ -106,27 +106,21 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float sdBoxFrame( vec3 p, vec3 b, float e )
+float recursiveSphere(vec3 currentPosition, float radius, int depth)
 {
-    p = abs(p  )-b;
-    vec3 q = abs(p+e)-e;
+    if(depth <= 0) return distance(p, vec3(0.0)) - radius;
 
-        return min(min(
-        length(max(vec3(p.x,q.y,q.z),0.0))+min(max(p.x,max(q.y,q.z)),0.0),
-        length(max(vec3(q.x,p.y,q.z),0.0))+min(max(q.x,max(p.y,q.z)),0.0)),
-        length(max(vec3(q.x,q.y,p.z),0.0))+min(max(q.x,max(q.y,p.z)),0.0));
+    vec3 newPosition = currentPosition * 2.0 - vec3(1.5,0.0,0.0);
+    float child = recusiveSphere(newPosition, radius*0.5,depth-1);
+
+    return min(distance(position, vec3(0.0))-radius,child);
 }
 
 float scene(vec3 currentPosition){
 
-    float origin = 0.;
+    float spheres = recursiveSphere(currentPosition, 2.0, 2.0);
 
-    float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
-    float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
-
-    float combinedShapes = smin(sphere1Dis, boxy, 0.1);
-
-    return combinedShapes;
+    return spheres;
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
@@ -157,23 +151,10 @@ float interesectionBlend(vec3 currentPosition) {
 }
 
 vec3 sceneCol(vec3 currentPosition){
-    float origin = 0.;
 
-    float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
-    float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
-    vec3 boxColor = vec3(0.0,1.0,0.0);
     vec3 sphereColor = vec3(1.0,0.0,0.0);
-    float blendFactor = interesectionBlend(currentPosition);
 
-
-    if(sphere1Dis >= boxy)
-    {
-        return mix(sphereColor, boxColor, blendFactor);
-    }
-    else if(boxy >= sphere1Dis)
-    {
-        return mix(boxColor, sphereColor, blendFactor);
-    }
+    return sphereColor; 
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
