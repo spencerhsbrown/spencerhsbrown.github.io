@@ -112,7 +112,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 
 float opLimitedRepetition(vec3 position, float distanceBetween, vec3 gridSize, float radius)
 {
-    vec3 q = position - scale*clamp(round(position/distanceBetween),-gridSize,gridSize);
+    vec3 q = position - distanceBetween*clamp(round(position/distanceBetween),-gridSize,gridSize);
     return sphere(q, vec3(0.0), radius);
 }
 
