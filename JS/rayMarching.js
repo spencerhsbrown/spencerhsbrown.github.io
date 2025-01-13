@@ -112,7 +112,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 float repeated( vec3 p )
 {
     p.x = p.x - round(p.x);
-    return sphere(p, vec3(0.0), 2);
+    return sphere(p, vec3(0.0), 2.0);
 }
 
 float scene(vec3 currentPosition){
