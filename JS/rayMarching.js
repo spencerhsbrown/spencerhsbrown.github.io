@@ -118,7 +118,7 @@ float recursiveSphere(vec3 currentPosition, float radius, int depth)
 
 float scene(vec3 currentPosition){
 
-    float spheres = recursiveSphere(currentPosition, 2.0, 2.0);
+    float spheres = recursiveSphere(currentPosition, 2.0, 2);
 
     return spheres;
 }
