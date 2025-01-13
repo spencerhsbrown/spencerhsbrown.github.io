@@ -106,19 +106,13 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float recursiveSphere(vec3 currentPosition, float radius, int depth)
-{
-    if(depth <= 0) return distance(currentPosition, vec3(0.0)) - radius;
-
-    vec3 newPosition = currentPosition * 2.0 - vec3(1.5,0.0,0.0);
-    float child = recursiveSphere(newPosition, radius*0.5,depth-1);
-
-    return min(distance(currentPosition, vec3(0.0))-radius,child);
+float sphere(vec3 currentPosition, vec3 center, float radius) {
+    return distance(currentPosition, center) - radius;
 }
 
 float scene(vec3 currentPosition){
 
-    float spheres = recursiveSphere(currentPosition, 2.0, 2);
+    float spheres = sphere(currentPosition, vec3(0.0,0.0,0.0), 2.0);
 
     return spheres;
 }
@@ -140,15 +134,6 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
     return totalDistance;
 }
-
-//float interesectionBlend(vec3 currentPosition) {
- //   float origin = 0.;
- //   float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
- //   float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
-
- //   float threshold = 0.4;
- //   return smoothstep(-threshold, threshold, abs(boxy-sphere1Dis));
-//}
 
 vec3 sceneCol(vec3 currentPosition){
 
