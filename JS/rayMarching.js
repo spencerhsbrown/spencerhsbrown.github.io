@@ -109,10 +109,15 @@ float smin(float a, float b, float k) {
 float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
+float repeated( vec3 p )
+{
+    p.x = p.x - round(p.x);
+    return sphere(p, vec3(0.0), 2);
+}
 
 float scene(vec3 currentPosition){
 
-    float spheres = sphere(currentPosition, vec3(0.0,0.0,0.0), 2.0);
+    float spheres = repeated(currentPosition);
 
     return spheres;
 }
