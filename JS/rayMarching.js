@@ -157,12 +157,14 @@ float interesectionBlend(vec3 currentPosition) {
 }
 
 vec3 sceneCol(vec3 currentPosition){
-    float origin = 0;
+    float origin = 0.;
 
     float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
     float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
     vec3 boxColor = vec3(0.0,1.0,0.0);
     vec3 sphereColor = vec3(0.0,0.0,1.0);
+    float blendFactor = interesectionBlend(currentPosition);
+
 
     if(sphere1Dis >= boxy)
     {
@@ -172,8 +174,6 @@ vec3 sceneCol(vec3 currentPosition){
     {
         return mix(boxColor, sphereColor, blendFactor);
     }
-
-    //float blendFactor = interesectionBlend(currentPosition);
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
