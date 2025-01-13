@@ -128,7 +128,7 @@ float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
 
 float scene(vec3 currentPosition){
 
-    float spheres = opLimitedRepetition(currentPosition,vec3(1.0), vec3(50.0, 2.0, 50.0), 0.25);
+    float spheres = opLimitedRepetition(currentPosition,vec3(1.0), vec3(50.0, 1.0, 50.0), 0.25);
 
     return spheres;
 }
