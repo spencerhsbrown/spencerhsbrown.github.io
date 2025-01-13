@@ -110,16 +110,15 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
 
-vec3 opLimitedRepetition(vec3 p, float s, vec3 l, float primitive )
+vec3 opLimitedRepetition(vec3 position, float scale, vec3 gridSizze, float radius)
 {
     vec3 q = p - s*clamp(round(p/s),-l,l);
-    return primitive( q );
+    return sphere(q, vec3(0.0), radius);
 }
 
 float scene(vec3 currentPosition){
-    float sphere = sphere(currentPosition, vec3(0.0), 1.0);
 
-    float spheres = opLimitedRepetition(currentPosition,2.0, vec3(1.0,1.0,1.0), sphere);
+    float spheres = opLimitedRepetition(currentPosition,2.0, vec3(5.0), 1.0);
 
     return spheres;
 }
