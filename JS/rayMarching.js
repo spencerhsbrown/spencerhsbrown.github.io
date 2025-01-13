@@ -113,7 +113,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
 {
      // Calculate the grid index
-    vec3 gridIndex = clamp(floor(p / vec3(s.x,s.y + 2.0,s.z) + 0.5), -l, l);
+    vec3 gridIndex = clamp(floor(p / vec3(s.x,s.y + 5.0,s.z) + 0.5), -l, l);
 
     // Calculate the animated offset
     vec3 offset = vec3(0.0, sin(gridIndex.x + gridIndex.z + (u_time*3.0)) * 0.3, 0.0);
@@ -152,7 +152,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
 vec3 sceneCol(vec3 currentPosition){
 
-    vec3 sphereColor = vec3(1.0,0.25,0.0);
+    vec3 sphereColor = vec3(0.6,0.75,0.0);
 
     return sphereColor; 
 }
