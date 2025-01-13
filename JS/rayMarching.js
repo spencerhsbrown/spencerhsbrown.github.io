@@ -118,7 +118,7 @@ float opLimitedRepetition(vec3 position, float distanceBetween, vec3 gridSize, f
 
 float scene(vec3 currentPosition){
 
-    float spheres = opLimitedRepetition(currentPosition,1.0, vec3(2.0), 0.25);
+    float spheres = opLimitedRepetition(currentPosition,1.0, vec3(1.0), 0.25);
 
     return spheres;
 }
