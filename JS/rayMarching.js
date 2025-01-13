@@ -157,7 +157,7 @@ float interesectionBlend(vec3 currentPosition) {
 }
 
 vec3 sceneCol(vec3 currentPosition){
-    float origin = 0;
+    float origin = 0.;
 
     float boxy = sdBoxFrame(currentPosition, vec3(origin+0.5, origin+0.3, origin+0.5), 0.025);
     float sphere1Dis = distance(currentPosition,vec3(0,sin(u_time)*1.5,0)) - 0.5;
