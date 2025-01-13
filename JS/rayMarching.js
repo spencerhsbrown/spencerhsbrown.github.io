@@ -112,17 +112,17 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 
 float opLimitedRepetition(vec3 p, float s, vec3 l, float radius, float time)
 {
-    // Calculate the grid index
-    vec3 gridIndex = clamp(round(p / s), -l, l);
+     // Calculate the grid index
+    vec3 gridIndex = clamp(floor(p / s + 0.5), -l, l);
 
-    // Add a sine wave offset to the Y-coordinate of each sphere based on its grid position
+    // Calculate the animated offset for the current sphere's Y-position
     float offset = sin(gridIndex.x * 1.5 + gridIndex.z * 1.5 + time) * 0.5;
 
-    // Shift position based on repetition and animation offset
+    // Calculate the position of the current sphere
     vec3 q = p - s * gridIndex;
-    q.y -= offset;
+    q.y -= offset; // Apply the offset to the Y-coordinate
 
-    // Compute the sphere SDF
+    // Return the SDF of the sphere at this position
     return sphere(q, vec3(0.0), radius);
 }
 
