@@ -106,18 +106,20 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float sphere(vec3 currentPosition, vec3 center, float radius) {
+float sphere(vec3 currentPosition, vec3 center, float radius, vec3 id) {
     return distance(currentPosition, center) - radius;
 }
-float repeated( vec3 p )
+
+float repeated( vec3 currentPosition, float distApart )
 {
-    p.x = p.x - round(p.x);
-    return sphere(p, vec3(0.0), 0.5);
+    vec3 id = round(currentPosition/distApart);
+    vec2 r = currentPosition - distanceApart*id;
+    return sphere(r, 0.0, 0.0, id);
 }
 
 float scene(vec3 currentPosition){
 
-    float spheres = repeated(currentPosition);
+    float spheres = repeated(currentPosition,5.0);
 
     return spheres;
 }
