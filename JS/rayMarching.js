@@ -152,7 +152,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
 vec3 sceneCol(vec3 currentPosition){
 
-    vec3 sphereColor = vec3(1.0,0.0,0.0);
+    vec3 sphereColor = vec3(1.0,0.25,0.0);
 
     return sphereColor; 
 }
