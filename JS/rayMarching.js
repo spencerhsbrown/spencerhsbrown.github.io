@@ -115,7 +115,7 @@ float opLimitedRepetition(vec3 position, float distanceBetween, vec3 gridSize, f
     float offset = 0.0;
     offset++;
     vec3 q = position - distanceBetween*clamp(round(position/distanceBetween),-gridSize,gridSize);
-    return sphere(q, vec3(0.0, sin(u_time)*offset, 0,0), radius);
+    return sphere(q, vec3(0.0, sin(u_time)*offset, 0.0), radius);
 }
 
 float scene(vec3 currentPosition){
