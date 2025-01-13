@@ -110,25 +110,24 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
 
-float opLimitedRepetition(vec3 p, float s, vec3 l, float radius, float time)
+float opLimitedRepetition(vec3 p, float s, vec3 l, float radius)
 {
      // Calculate the grid index
     vec3 gridIndex = clamp(floor(p / s + 0.5), -l, l);
 
-    // Calculate the animated offset for the current sphere's Y-position
-    float offset = sin(gridIndex.x * 1.5 + gridIndex.z * 1.5 + time) * 0.5;
+    // Calculate the animated offset
+    vec3 offset = vec3(0.0, sin(gridIndex.x + gridIndex.z + u_time) * 0.5, 0.0);
 
     // Calculate the position of the current sphere
-    vec3 q = p - s * gridIndex;
-    q.y -= offset; // Apply the offset to the Y-coordinate
+    vec3 offsetSpheres = p-s*gridIndex - offset;
 
     // Return the SDF of the sphere at this position
-    return sphere(q, vec3(0.0), radius);
+    return sphere(offsetSpheres, vec3(0.0), radius);
 }
 
 float scene(vec3 currentPosition){
 
-    float spheres = opLimitedRepetition(currentPosition,1.0, vec3(20.0,0.0, 20.0), 0.25, u_time);
+    float spheres = opLimitedRepetition(currentPosition,1.0, vec3(20.0,0.0, 20.0), 0.25);
 
     return spheres;
 }
