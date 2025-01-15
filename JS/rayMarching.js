@@ -110,9 +110,9 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
 
-float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius, out float height)
+float opLimitedRepetitionColor(vec3 p, vec3 s, vec3 l, float radius, out float height)
 {
-
+    
     bool calculateHeight = (height != -1.0);
 
      // Calculate the grid index
@@ -126,19 +126,35 @@ float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius, out float height
 
     // Calculate the position of the current sphere
     vec3 offsetSpheres = p-s*gridIndex - offset;
-    if(calculateHeight)
-    {
-       height = offsetSpheres.y;
-    }
+    
+    height = offsetSpheres.y;
+
     // Return the SDF of the sphere at this position
     return sphere(offsetSpheres, vec3(0.0), radius);
 }
+float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
+{
+     // Calculate the grid index
+    vec3 gridIndex = clamp(floor(p / s + 0.5), -l, l);
 
+    // Calculate the animated offset
+    //sin(gridIndex.x + gridIndex.z + (u_time*3.0)) * 0.2
+
+
+    vec3 offset = vec3(0.0, sin(gridIndex.x + gridIndex.z + (u_time*3.0)) * 0.2, 0.0);
+
+    // Calculate the position of the current sphere
+    vec3 offsetSpheres = p-s*gridIndex - offset;
+
+
+    // Return the SDF of the sphere at this position
+    return sphere(offsetSpheres, vec3(0.0), radius);
+}
 float scene(vec3 currentPosition){
     vec3 boundingBox = vec3(1.0, 5.0, 1.0);
     vec3 gridSize = vec3(30.0 ,0.0 ,30.0);
 
-    float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.25, -1.0);
+    float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.25);
 
     return spheres;
 }
@@ -177,7 +193,7 @@ vec3 sceneCol(vec3 currentPosition){
     vec3 gridSize = vec3(30.0 ,0.0 ,30.0);
 
     float height;
-    float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.25, height);
+    float spheres = opLimitedRepetitionColor(currentPosition, boundingBox, gridSize, 0.25, height);
 
     return getColorByHeight(height, -1.5, 1.5);
 }
