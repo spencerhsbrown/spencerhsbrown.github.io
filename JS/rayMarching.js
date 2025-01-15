@@ -110,7 +110,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
 
-float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
+float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius, out float height)
 {
      // Calculate the grid index
     vec3 gridIndex = clamp(floor(p / s + 0.5), -l, l);
@@ -118,11 +118,13 @@ float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
     // Calculate the animated offset
     //sin(gridIndex.x + gridIndex.z + (u_time*3.0)) * 0.2
 
-
+    
     vec3 offset = vec3(0.0, sin(gridIndex.x + gridIndex.z + (u_time*3.0)) * 0.2, 0.0);
 
     // Calculate the position of the current sphere
     vec3 offsetSpheres = p-s*gridIndex - offset;
+
+    height = offsetSphere.y;
 
     // Return the SDF of the sphere at this position
     return sphere(offsetSpheres, vec3(0.0), radius);
@@ -131,7 +133,6 @@ float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
 float scene(vec3 currentPosition){
     vec3 boundingBox = vec3(1.0, 5.0, 1.0);
     vec3 gridSize = vec3(30.0 ,0.0 ,30.0);
-
 
     float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.25);
 
@@ -156,11 +157,25 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
     return totalDistance;
 }
 
+vec3 getColorByHeight(float height, float minHeight, float maxHeight)
+{
+    float t = clamp((height-minHeight) / (maxheight - minHeight), 0.0, 1.0);
+
+    vec3 color1 = vec3(1.0, 0.0, 0.0);
+    vec3 color2 = vec3(0.0, 1.0, 0.0);
+
+    return mix(color1, color2, t);
+}   
+
 vec3 sceneCol(vec3 currentPosition){
+    
+    vec3 boundingBox = vec3(1.0, 5.0, 1.0);
+    vec3 gridSize = vec3(30.0 ,0.0 ,30.0);
 
-    vec3 sphereColor = vec3(0.6,0.75,0.0);
+    float height;
+    float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.25, height);
 
-    return sphereColor; 
+    return getColorByHeight(height, -1.5, 1.5);
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
