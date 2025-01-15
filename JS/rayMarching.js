@@ -124,7 +124,7 @@ float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius, out float height
     // Calculate the position of the current sphere
     vec3 offsetSpheres = p-s*gridIndex - offset;
 
-    height = offsetSphere.y;
+    height = offsetSpheres.y;
 
     // Return the SDF of the sphere at this position
     return sphere(offsetSpheres, vec3(0.0), radius);
@@ -159,7 +159,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
 vec3 getColorByHeight(float height, float minHeight, float maxHeight)
 {
-    float t = clamp((height-minHeight) / (maxheight - minHeight), 0.0, 1.0);
+    float t = clamp((height-minHeight) / (maxHeight - minHeight), 0.0, 1.0);
 
     vec3 color1 = vec3(1.0, 0.0, 0.0);
     vec3 color2 = vec3(0.0, 1.0, 0.0);
