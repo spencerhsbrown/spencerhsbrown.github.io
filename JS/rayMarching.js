@@ -40,9 +40,9 @@ rayMarchPlane.scale.set(nearPlaneWidth, nearPlaneHeight, 1);
 
 // Uniforms
 const uniforms = {
-    u_epsilonValue: { value: 0.0001 },
+    u_epsilonValue: { value: 0.001 },
     u_maxDis: { value: 1000 },
-    u_maxSteps: { value: 1000 },
+    u_maxSteps: { value: 100 },
 
     u_clearColor: { value: backgroundColor },
 
@@ -53,10 +53,10 @@ const uniforms = {
     u_lightDir: { value: light.position },
     u_lightColor: { value: light.color },
 
-    u_diffIntesity: { value: 0.5 },
-    u_specIntensity: { value: 3 },
-    u_ambientIntesity: { value: 0.15 },
-    u_shininess: { value: 16 },
+    u_diffIntesity: { value: 0. },
+    u_specIntensity: { value: 0 },
+    u_ambientIntesity: { value: 0.0 },
+    u_shininess: { value: 0 },
 
     u_time: { value: 0 },
 };
