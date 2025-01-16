@@ -157,7 +157,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
 vec3 getColorByHeight(vec3 currentPosition)
 {
-    float height = mod(currentPosition.y, 1.0); // Map height to [0, 1]
+    float height = currentPosition.y; // Map height to [0, 1]
 
     vec3 color1 = vec3(1.0, 0.0, 0.0);
     vec3 color2 = vec3(0.0, 1.0, 0.0);
