@@ -132,7 +132,7 @@ float scene(vec3 currentPosition){
     vec3 boundingBox = vec3(1.0, 5.0, 1.0);
     vec3 gridSize = vec3(30.0 ,0.0 ,30.0);
 
-    float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.25);
+    float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.1);
 
     return spheres;
 }
