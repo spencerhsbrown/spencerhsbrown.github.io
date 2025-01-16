@@ -40,7 +40,7 @@ rayMarchPlane.scale.set(nearPlaneWidth, nearPlaneHeight, 1);
 
 // Uniforms
 const uniforms = {
-    u_epsilonValue: { value: 0.001 },
+    u_epsilonValue: { value: 0.0001 },
     u_maxDis: { value: 1000 },
     u_maxSteps: { value: 1000 },
 
