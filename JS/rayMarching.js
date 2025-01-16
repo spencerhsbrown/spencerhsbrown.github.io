@@ -119,7 +119,7 @@ float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
     //sin(gridIndex.x + gridIndex.z + (u_time*3.0)) * 0.2
 
 
-    vec3 offset = vec3(0.0, sin(gridIndex.x + gridIndex.z + (u_time*3.0)) * 0.2, 0.0);
+    vec3 offset = vec3(0.0, sin(gridIndex.x + gridIndex.z + u_time) * 0.1, 0.0);
 
     // Calculate the position of the current sphere
     vec3 offsetSpheres = p-s*gridIndex - offset;
@@ -129,7 +129,7 @@ float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
     return sphere(offsetSpheres, vec3(0.0), radius);
 }
 float scene(vec3 currentPosition){
-    vec3 boundingBox = vec3(1.0, 5.0, 1.0);
+    vec3 boundingBox = vec3(1.0, 1.0, 1.0);
     vec3 gridSize = vec3(30.0 ,0.0 ,30.0);
 
     float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.25);
