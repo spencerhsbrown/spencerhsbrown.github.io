@@ -53,10 +53,10 @@ const uniforms = {
     u_lightDir: { value: light.position },
     u_lightColor: { value: light.color },
 
-    u_diffIntesity: { value: 0. },
-    u_specIntensity: { value: 0 },
-    u_ambientIntesity: { value: 0.0 },
-    u_shininess: { value: 0 },
+    u_diffIntesity: { value: 0.2 },
+    u_specIntensity: { value: 0.2 },
+    u_ambientIntesity: { value: 0.4 },
+    u_shininess: { value: 0.6 },
 
     u_time: { value: 0 },
 };
