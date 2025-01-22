@@ -130,7 +130,7 @@ float opLimitedRepetition(vec3 p, vec3 s, vec3 l, float radius)
 }
 float scene(vec3 currentPosition){
     vec3 boundingBox = vec3(1.0, 5.0, 1.0);
-    vec3 gridSize = vec3(30.0 ,0.0 ,30.0);
+    vec3 gridSize = vec3(0.0 ,0.0 ,0.0);
 
     float spheres = opLimitedRepetition(currentPosition, boundingBox, gridSize, 0.1);
 
