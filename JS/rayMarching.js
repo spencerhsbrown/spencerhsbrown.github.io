@@ -119,7 +119,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 float scene(vec3 currentPosition){
 
     float torus = sdTorus(currentPosition, vec2(1.0,0.2));
-    float spheres = sphere(currentPosition-2.0, vec3(0.0), 1.0);
+    float spheres = sphere(currentPosition, vec3(-1.0,2.0,3.0), 1.0);
 
     return min(torus,spheres);
 }
