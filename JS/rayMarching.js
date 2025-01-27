@@ -38,6 +38,30 @@ const nearPlaneHeight = nearPlaneWidth / camera.aspect;
 rayMarchPlane.scale.set(nearPlaneWidth, nearPlaneHeight, 1);
 
 
+window.addEventListener('keydown', (event) => {
+    switch (event.key) {
+        case 'w': // Move sphere up
+            spherePosition.y += moveSpeed;
+            break;
+        case 's': // Move sphere down
+            spherePosition.y -= moveSpeed;
+            break;
+        case 'a': // Move sphere left
+            spherePosition.x -= moveSpeed;
+            break;
+        case 'd': // Move sphere right
+            spherePosition.x += moveSpeed;
+            break;
+        case 'q': // Move sphere forward
+            spherePosition.z += moveSpeed;
+            break;
+        case 'e': // Move sphere backward
+            spherePosition.z -= moveSpeed;
+            break;
+    }
+});
+
+
 // Uniforms
 const uniforms = {
     u_epsilonValue: { value: 0.001 },
@@ -59,6 +83,8 @@ const uniforms = {
     u_shininess: { value: 0.6 },
 
     u_time: { value: 0 },
+
+    u_spherePosition: {value: 0.0},
 };
 material.uniforms = uniforms;
 
@@ -99,6 +125,7 @@ uniform float u_ambientIntesity;
 uniform float u_shininess;
 
 uniform float u_time;
+uniform vec3 u_spherePosition;
 
 
 float smin(float a, float b, float k) {
@@ -198,8 +225,11 @@ material.fragmentShader = fragCode;
 
 scene.add(rayMarchPlane)
 
+let spherePosition = { x: 0.0, y: 0.0, z: 0.0 };
 let cameraForwardPos = new THREE.Vector3(0, 0, -1);
+
 const VECTOR3ZERO = new THREE.Vector3(0, 0, 0);
+const moveSpeed = 0.1;
 
 let time = Date.now();
 
@@ -215,5 +245,7 @@ const animate = () => {
     uniforms.u_time.value = (Date.now() - time) / 2000;
 
     controls.update();
+
+    uniforms.u_spherePosition.value = (spherePosition.x, spherePosition.y, spherePosition.z);
 }
 animate();
