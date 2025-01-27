@@ -106,13 +106,22 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
+float sdTorus( vec3 currentPosition, vec2 radius )
+{
+  vec2 q = vec2(length(currentPosition.xz)-radius.x,currentPosition.y);
+  return length(q)-radius.y;
+}
+
 float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
 
 float scene(vec3 currentPosition){
 
-    return sphere(currentPosition, vec3(0.0), 1.0);
+    float torus = sdTorus(currentPosition, vec2(1.0,1.0));
+    float spheres = sphere(currentPosition, vec3(0.0), 1.0);
+
+    return min(torus,spheres);
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
