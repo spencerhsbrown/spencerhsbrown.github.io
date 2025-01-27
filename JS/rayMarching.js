@@ -84,7 +84,7 @@ const uniforms = {
 
     u_time: { value: 0 },
 
-    u_spherePosition: { value: new THREE.Vector3(0.0) },
+    u_spherePosition: { value: 0.0 },
 };
 material.uniforms = uniforms;
 
@@ -125,7 +125,7 @@ uniform float u_ambientIntesity;
 uniform float u_shininess;
 
 uniform float u_time;
-uniform vec3 u_spherePosition;
+uniform float u_spherePosition;
 
 
 float smin(float a, float b, float k) {
@@ -146,7 +146,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 float scene(vec3 currentPosition){
 
     float torus = sdTorus(currentPosition, vec2(1.0,0.2));
-    float spheres = sphere(currentPosition, u_spherePosition, 0.25);
+    float spheres = sphere(currentPosition, vec3(0.0, u_spherePosition, 0.0), 0.25);
 
     return smin(torus,spheres, u_epsilonValue);
 }
@@ -246,6 +246,6 @@ const animate = () => {
 
     controls.update();
 
-    uniforms.u_spherePosition.value = (spherePosition.x, spherePosition.y, spherePosition.z);
+    uniforms.u_spherePosition.value = spherePosition.x;
 }
 animate();
