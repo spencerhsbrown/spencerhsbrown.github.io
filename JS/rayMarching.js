@@ -125,7 +125,7 @@ uniform float u_ambientIntesity;
 uniform float u_shininess;
 
 uniform float u_time;
-uniform float u_spherePosition;
+uniform vec3 u_spherePosition;
 
 
 float smin(float a, float b, float k) {
@@ -175,7 +175,7 @@ vec3 sceneCol(vec3 currentPosition){
     vec3 color2 = vec3(1.0,0.0,0.0);
 
     float torusDist = sdTorus(currentPosition, vec2(1.0,0.2));
-    float spheresDist = sphere(currentPosition, vec3(0.0, u_spherePosition, 0.0), 0.3);
+    float spheresDist = sphere(currentPosition, vec3(u_spherePosition.x, u_spherePosition.y, u_spherePosition.z), 0.3);
 
     float threshold = 0.1;
     float blendFactor = smoothstep(-threshold, threshold, abs(torusDist - spheresDist));
@@ -262,6 +262,6 @@ const animate = () => {
 
     controls.update();
 
-    uniforms.u_spherePosition.value = spherePosition.x;
+    uniforms.u_spherePosition.value = spherePosition;
 }
 animate();
