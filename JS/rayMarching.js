@@ -172,7 +172,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 vec3 sceneCol(vec3 currentPosition){
 
     float torusDist = sdTorus(currentPosition, vec2(1.0,0.2));
-    float spheresDist = sphere(currentPosition, vec3(0.0), 0.25);
+    float spheresDist = sphere(currentPosition, vec3(0.0, u_spherePosition, 0.0), 0.25);
 
     vec3 color = (torusDist < spheresDist) ?  vec3(1.0,0.0,0.0) : vec3(0.0,1.0,0.0);
 
