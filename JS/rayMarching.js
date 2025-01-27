@@ -144,9 +144,12 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
 vec3 sceneCol(vec3 currentPosition){
 
-    vec3 color1 = vec3(1.0,0.0,0.0); 
+    float torusDist = sdTorus(currentPosition, vec2(1.0,0.2));
+    float spheresDist = sphere(currentPosition, vec3(0.0), 0.25);
 
-    return color1;
+    vec3 color = (torusDist < sphereDist) ?  vec3(1.0,0.0,0.0) : vec3(0.0,1.0,0.0);
+
+    return color;
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
