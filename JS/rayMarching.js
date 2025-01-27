@@ -188,8 +188,11 @@ vec3 sceneCol(vec3 currentPosition){
     {
         return mix(color2,color1,blendFactor);
     }
+    else
+    {
+        return vec3(0.1,0.1,0.1);
+    }
 
-    return color;
 }
 
 vec3 normal(vec3 p) // from https://iquilezles.org/articles/normalsSDF/
