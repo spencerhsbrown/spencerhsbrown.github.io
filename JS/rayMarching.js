@@ -121,7 +121,7 @@ float scene(vec3 currentPosition){
     float torus = sdTorus(currentPosition, vec2(1.0,0.2));
     float spheres = sphere(currentPosition, vec3(0.0), 0.25);
 
-    return min(torus,spheres);
+    return smin(torus,spheres, u_epsilonValue);
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
