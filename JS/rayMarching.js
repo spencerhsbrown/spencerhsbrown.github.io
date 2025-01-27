@@ -84,7 +84,7 @@ const uniforms = {
 
     u_time: { value: 0 },
 
-    u_spherePosition: {value: 0.0},
+    u_spherePosition: new Uniform(new Vector3())
 };
 material.uniforms = uniforms;
 
