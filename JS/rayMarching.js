@@ -64,7 +64,7 @@ window.addEventListener('keydown', (event) => {
 
 // Uniforms
 const uniforms = {
-    u_epsilonValue: { value: 0.2 },
+    u_epsilonValue: { value: 0.01 },
     u_maxDis: { value: 1000 },
     u_maxSteps: { value: 1000 },
 
@@ -79,7 +79,7 @@ const uniforms = {
 
     u_diffIntesity: { value: 0.2 },
     u_specIntensity: { value: 0.2 },
-    u_ambientIntesity: { value: 0.0 },
+    u_ambientIntesity: { value: 0.2 },
     u_shininess: { value: 0.1 },
 
     u_time: { value: 0 },
@@ -148,7 +148,7 @@ float scene(vec3 currentPosition){
     float torus = sdTorus(currentPosition, vec2(1.0,0.2));
     float spheres = sphere(currentPosition, vec3(0.0, u_spherePosition, 0.0), 0.3);
 
-    return min(torus,spheres);
+    return smin(torus,spheres, 0.2);
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
