@@ -80,7 +80,7 @@ const uniforms = {
     u_diffIntesity: { value: 0.2 },
     u_specIntensity: { value: 0.2 },
     u_ambientIntesity: { value: 0.4 },
-    u_shininess: { value: 0.6 },
+    u_shininess: { value: 0.1 },
 
     u_time: { value: 0 },
 
