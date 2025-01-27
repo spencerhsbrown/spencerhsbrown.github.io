@@ -64,7 +64,7 @@ window.addEventListener('keydown', (event) => {
 
 // Uniforms
 const uniforms = {
-    u_epsilonValue: { value: 0.001 },
+    u_epsilonValue: { value: 0.2 },
     u_maxDis: { value: 1000 },
     u_maxSteps: { value: 100 },
 
