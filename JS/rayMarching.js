@@ -108,7 +108,7 @@ float smin(float a, float b, float k) {
 
 float sdTorus( vec3 currentPosition, vec2 radius )
 {
-  vec2 q = vec2(length(currentPosition.xz)-radius.x,currentPosition.y);
+  vec2 q = vec2(length(currentPosition.xy)-radius.x,currentPosition.z);
   return length(q)-radius.y;
 }
 
