@@ -225,7 +225,7 @@ material.fragmentShader = fragCode;
 
 scene.add(rayMarchPlane)
 
-let spherePosition = { x: 0.0, y: 0.0, z: 0.0 };
+let spherePosition = new THREE.Vector3(0.0, 0.0, 0.0);
 let cameraForwardPos = new THREE.Vector3(0, 0, -1);
 
 const VECTOR3ZERO = new THREE.Vector3(0, 0, 0);
