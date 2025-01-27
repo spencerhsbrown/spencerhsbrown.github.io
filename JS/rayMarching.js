@@ -178,13 +178,13 @@ vec3 sceneCol(vec3 currentPosition){
     float spheresDist = sphere(currentPosition, vec3(0.0, u_spherePosition, 0.0), 0.3);
 
     float threshold = 0.1;
-    float blendFactor = smoothstep(-threshold, threshold, abs(torusDist - sphereDist));
+    float blendFactor = smoothstep(-threshold, threshold, abs(torusDist - spheresDist));
 
-    if (torusDist < sphereDist)
+    if (torusDist < spheresDist)
     {
         return mix(color1,color2,blendFactor);
     }
-    else if (sphereDist < torusDist)
+    else if (spheresDist < torusDist)
     {
         return mix(color2,color1,blendFactor);
     }
