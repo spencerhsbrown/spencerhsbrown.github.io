@@ -171,10 +171,23 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
 vec3 sceneCol(vec3 currentPosition){
 
+    vec3 color1 = vec3(0.0,0.0,1.0);
+    vec3 color2 = vec3(1.0,0.0,0.0);
+
     float torusDist = sdTorus(currentPosition, vec2(1.0,0.2));
     float spheresDist = sphere(currentPosition, vec3(0.0, u_spherePosition, 0.0), 0.3);
 
-    vec3 color = (torusDist < spheresDist) ?  vec3(1.0,0.0,0.0) : vec3(0.0,1.0,0.0);
+    float threshold = 0.1;
+    float blendFactor = smoothstep(-threshold, threshold, abs(torusDist - sphereDist));
+
+    if (torusDist < sphereDist)
+    {
+        return mix(color1,color2,blendFactor);
+    }
+    else if (sphereDist < torusDist)
+    {
+        return mix(color2,color1,blendFactor);
+    }
 
     return color;
 }
