@@ -36,7 +36,7 @@ canvas
 .slider {
     -webkit-appearance: none; /* Override default CSS styles */
     appearance: none;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 100%; /* Full-width */
     height: 25px; /* Specified height */
     background: #d3d3d3; /* Grey background */
