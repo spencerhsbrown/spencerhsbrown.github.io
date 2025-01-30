@@ -91,7 +91,7 @@ const uniforms = {
     u_diffIntesity: { value: 0.2 },
     u_specIntensity: { value: 0.2 },
     u_ambientIntesity: { value: 0.2 },
-    u_shininess: { value: slider.value },
+    u_shininess: { value: shinyslider },
 
     u_time: { value: 0 },
 
