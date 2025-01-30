@@ -92,7 +92,7 @@ const uniforms = {
     u_diffIntesity: { value: 0.2 },
     u_specIntensity: { value: 0.2 },
     u_ambientIntesity: { value: 0.2 },
-    u_shininess: { value: shinyslider },
+    u_shininess: { value: 0.2 },
 
     u_time: { value: 0 },
 
@@ -275,5 +275,6 @@ const animate = () => {
     controls.update();
 
     uniforms.u_spherePosition.value = spherePosition;
+    uniforms.u_shininess.value = shinyslider;
 }
 animate();
