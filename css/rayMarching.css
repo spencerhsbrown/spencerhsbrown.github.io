@@ -19,6 +19,7 @@ canvas
 
 .slidecontainer {
     width: 100%; /* Width of the outside container */
+    position:absolute;
 }
 
 /* The slider itself */
