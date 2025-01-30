@@ -28,13 +28,14 @@ canvas
 { /* Width of the outside container */
     position:absolute;
     width:50px;
+    padding:5px;
 }
 
 /* The slider itself */
-.slider 
-{
+.slider {
     -webkit-appearance: none; /* Override default CSS styles */
     appearance: none;
+    border-radius: 5px;
     width: 100%; /* Full-width */
     height: 25px; /* Specified height */
     background: #d3d3d3; /* Grey background */
