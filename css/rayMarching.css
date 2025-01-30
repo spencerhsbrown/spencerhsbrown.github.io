@@ -58,6 +58,7 @@ canvas
     appearance: none;
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
+    border-radius: 50%; 
     background: #04AA6D; /* Green background */
     cursor: pointer; /* Cursor on hover */
 
@@ -67,6 +68,7 @@ canvas
 {
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
+    border-radius: 50%; 
     background: #04AA6D; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
