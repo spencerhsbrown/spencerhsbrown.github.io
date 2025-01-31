@@ -5,8 +5,8 @@ import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitC
 
 
 //slider Functionality
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
+var shinySlider = document.getElementById("shinySlider");
+var shinyOutput = document.getElementById("shinynessTextValue");
 var shinyslider = 0.0;
 output.innerHTML = slider.value; // Display the default slider value
 
