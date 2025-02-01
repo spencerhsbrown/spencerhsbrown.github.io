@@ -224,7 +224,7 @@ vec3 traceReflection(vec3 rayOrigin, vec3 rayDirection, int depth) {
     }
 
     // Get normal at the hit point
-    vec3 norm = normal(hitPosition);
+    vec3 norm = new vec3(normal(hitPosition));
 
     // Calculate reflection direction
     vec3 reflectionDir = reflectRay(rayDirection, norm);
