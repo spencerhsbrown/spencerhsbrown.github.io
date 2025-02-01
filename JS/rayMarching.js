@@ -7,14 +7,13 @@ import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitC
 //slider Functionality
 var shinySlider = document.getElementById("shinySlider");
 var shinyOutput = document.getElementById("shinynessTextValue");
-var shinyslider = 0.0;
-//shinySlider.innerHTML = shinySlider.value; // Display the default slider value
+shinySlider.innerHTML = shinySlider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
-slider.oninput = function () {
+shinySlider.oninput = function () {
     output.innerHTML = this.value;
     shinyslider = this.value;
-    uniforms.u_shininess.value = shinyslider;
+    uniforms.u_shininess.value = this.value;
 } 
 
 
