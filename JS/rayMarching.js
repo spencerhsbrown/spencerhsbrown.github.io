@@ -161,7 +161,7 @@ uniform vec3 u_spherePosition;
 
 //reflection uniforms
 uniform float u_reflectionStrength;
-uniform float u_maxReflectionDepth;
+uniform int u_maxReflectionDepth;
 
 
 float smin(float a, float b, float k) {
