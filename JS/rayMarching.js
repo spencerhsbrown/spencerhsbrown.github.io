@@ -3,16 +3,24 @@
 import * as THREE from 'https://esm.sh/three';
 import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitControls";;
 
-
+//value sliders for controlling visuals start here
 //slider Functionality
 var shinySlider = document.getElementById("shinynessRange");
 var shinyOutput = document.getElementById("shinynessTextValue");
 shinyOutput.innerHTML = shinySlider.value; // Display the default slider value
 
+var ambientIntesitySlider = document.getElementById("ambientIntesityRange");
+var ambientIntesityOutput = document.getElementById("ambientIntesityTextValue");
+ambientIntesityOutput.innerHTML = ambientIntesitySlider.value;
 // Update the current slider value (each time you drag the slider handle)
 shinySlider.oninput = function () {
     shinyOutput.innerHTML = this.value;
     uniforms.u_shininess.value = this.value;
+} 
+
+ambientIntesitySlider.oninput = function () {
+    ambientIntesityOutput.innerHTML = this.value;
+    uniforms.u_ambientIntesity.value = this.value;
 } 
 
 
