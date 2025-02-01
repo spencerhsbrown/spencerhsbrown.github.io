@@ -112,10 +112,6 @@ const uniforms = {
     u_time: { value: 0 },
 
     u_spherePosition: { value: 0.0 },
-
-    //reflection uniforms
-    u_reflectionStength: { value: 0.5 },
-    u_maxReflectionDepth: { value: 3 },
 };
 material.uniforms = uniforms;
 
@@ -159,20 +155,15 @@ uniform float u_time;
 uniform vec3 u_spherePosition;
 
 
-//reflection uniforms
-uniform float u_reflectionStrength;
-uniform int u_maxReflectionDepth;
-
-
 float smin(float a, float b, float k) {
     float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float sdTorus( vec3 currentPosition, vec2 radius )
+float sdTorus(vec3 currentPosition, vec2 radius)
 {
-  vec2 q = vec2(length(currentPosition.xy)-radius.x,currentPosition.z);
-  return length(q)-radius.y;
+  vec2 q = vec2(length(currentPosition.xy) - radius.x, currentPosition.z);
+    return length(q) - radius.y;
 }
 
 float sphere(vec3 currentPosition, vec3 center, float radius) {
@@ -181,10 +172,10 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 
 float scene(vec3 currentPosition){
 
-    float torus = sdTorus(currentPosition, vec2(1.0,0.2));
+    float torus = sdTorus(currentPosition, vec2(1.0, 0.2));
     float spheres = sphere(currentPosition, vec3(u_spherePosition.x, u_spherePosition.y, u_spherePosition.z), 0.3);
 
-    return smin(torus,spheres, 0.2);
+    return smin(torus, spheres, 0.2);
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
@@ -205,59 +196,25 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
     return totalDistance;
 }
 
-// Reflection ray calculation
-vec3 reflectRay(vec3 incidentRay, vec3 normal) {
-    return incidentRay - 2.0 * dot(incidentRay, normal) * normal;
-}
-
-vec3 traceReflection(vec3 rayOrigin, vec3 rayDirection, int depth) {
-    if (depth >= u_maxReflectionDepth) {
-        return vec3(0.0);
-    }
-
-    // Raymarching for reflection
-    float disTravelled = rayMarch(rayOrigin, rayDirection);
-    vec3 hitPosition = rayOrigin + disTravelled * rayDirection;
-
-    if (disTravelled >= u_maxDis) {
-        return u_clearColor;
-    }
-
-    // Get normal at the hit point
-    vec3 norm = normalize(hitPosition);
-
-    // Calculate reflection direction
-    vec3 reflectionDir = reflectRay(rayDirection, norm);
-
-    // Recursively trace reflection
-    vec3 reflectedColor = traceReflection(hitPosition + norm * u_epsilonValue, reflectionDir, depth + 1);
-
-    return reflectedColor;
-}
-
-
 vec3 sceneCol(vec3 currentPosition){
 
-    vec3 color1 = vec3(0.0,0.0,1.0);
-    vec3 color2 = vec3(1.0,0.0,0.0);
+    vec3 color1 = vec3(0.0, 0.0, 1.0);
+    vec3 color2 = vec3(1.0, 0.0, 0.0);
 
-    float torusDist = sdTorus(currentPosition, vec2(1.0,0.2));
+    float torusDist = sdTorus(currentPosition, vec2(1.0, 0.2));
     float spheresDist = sphere(currentPosition, vec3(u_spherePosition.x, u_spherePosition.y, u_spherePosition.z), 0.3);
 
     float threshold = 0.1;
     float blendFactor = smoothstep(-threshold, threshold, abs(torusDist - spheresDist));
 
-    if (torusDist < spheresDist)
-    {
-        return mix(color1,color2,blendFactor);
+    if (torusDist < spheresDist) {
+        return mix(color1, color2, blendFactor);
     }
-    else if (spheresDist < torusDist)
-    {
-        return mix(color2,color1,blendFactor);
+    else if (spheresDist < torusDist) {
+        return mix(color2, color1, blendFactor);
     }
-    else
-    {
-        return vec3(0.1,0.1,0.1);
+    else {
+        return vec3(0.1, 0.1, 0.1);
     }
 
 }
@@ -291,22 +248,17 @@ void main() {
     if (disTravelled >= u_maxDis) {
         gl_FragColor = vec4(u_clearColor, 1);
     } else {
-        float dotNL = max(dot(norm, u_lightDir), 0.0);
-        float diff = dotNL * u_diffIntesity;
+        float dotNL = dot(norm, u_lightDir);
+        float diff = max(dotNL, 0.0) * u_diffIntesity;
         float spec = pow(diff, u_shininess) * u_specIntensity;
         float ambient = u_ambientIntesity;
 
-        vec3 color = u_lightColor * (diff + spec + ambient) * scene(hitPosition);
-
-        // Reflection mixing
-        vec3 reflectionColor = traceReflection(hitPosition + norm * u_epsilonValue, reflectRay(rayDirection, norm), 0);
-        color = mix(color, reflectionColor, u_reflectionStrength);
-
-        gl_FragColor = vec4(color, 1.0);
+        vec3 color = u_lightColor * (sceneCol(hitPosition) * (spec + ambient + diff));
+        gl_FragColor = vec4(color, 1);
 
     }
 }
-`
+`;
 
 material.vertexShader = vertCode;
 material.fragmentShader = fragCode;
