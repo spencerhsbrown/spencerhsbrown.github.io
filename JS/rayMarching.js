@@ -4,25 +4,35 @@ import * as THREE from 'https://esm.sh/three';
 import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitControls";;
 
 //value sliders for controlling visuals start here
-//slider Functionality
-var shinySlider = document.getElementById("shinynessRange");
-var shinyOutput = document.getElementById("shinynessTextValue");
-shinyOutput.innerHTML = shinySlider.value; // Display the default slider value
+class SliderControl {
+    constructor(sliderId, outputId, uniformProperty) {
+        this.slider = document.getElementById(sliderId);
+        this.output = document.getElementById(outputId);
+        this.uniformProperty = uniformProperty;
 
-var ambientIntesitySlider = document.getElementById("ambientIntesityRange");
-var ambientIntesityOutput = document.getElementById("ambientIntesityTextValue");
-ambientIntesityOutput.innerHTML = ambientIntesitySlider.value;
-// Update the current slider value (each time you drag the slider handle)
-shinySlider.oninput = function () {
-    shinyOutput.innerHTML = this.value;
-    uniforms.u_shininess.value = this.value;
-} 
+        // Set initial value
+        this.output.innerHTML = this.slider.value;
 
-ambientIntesitySlider.oninput = function () {
-    ambientIntesityOutput.innerHTML = this.value;
-    uniforms.u_ambientIntesity.value = this.value;
-} 
+        // Bind event listener
+        this.slider.oninput = () => this.updateValue();
+    }
 
+    updateValue() {
+        this.output.innerHTML = this.slider.value;
+        uniforms[this.uniformProperty].value = parseFloat(this.slider.value);
+    }
+}
+
+// Create slider instances
+const sliders = [
+    new SliderControl("shinynessRange", "shinynessTextValue", "u_shininess"),
+    new SliderControl("ambientIntesityRange", "ambientIntesityTextValue", "u_ambientIntesity"),
+    new SliderControl("specIntensityRange", "specIntensityTextValue", "u_specIntensity"),
+    new SliderControl("diffIntesityRange", "diffIntesityTextValue", "u_diffIntesity"),
+    new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps")
+];
+
+maxSteps
 
 const scene = new THREE.Scene();
 
