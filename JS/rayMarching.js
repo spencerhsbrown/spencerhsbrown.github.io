@@ -25,11 +25,11 @@ class SliderControl {
 
 // Create slider instances
 const sliders = [
-    new SliderControl("shinynessRange", "shinynessTextValue", "u_shininess"),
-    new SliderControl("ambientIntesityRange", "ambientIntesityTextValue", "u_ambientIntesity"),
-    new SliderControl("specIntensityRange", "specIntensityTextValue", "u_specIntensity"),
+    new SliderControl("shinynessRange", "shinynessTextValue", "u_spherePositionX"),
+    new SliderControl("ambientIntesityRange", "ambientIntesityTextValue", "u_spherePositionY"),
+    new SliderControl("specIntensityRange", "specIntensityTextValue", "u_spherePositionZ"),
     new SliderControl("diffIntesityRange", "diffIntesityTextValue", "u_diffIntesity"),
-    new SliderControl("maxStepsRange", "maxStepsTextValue", "u_spherePosition.x")
+    new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps")
 ];
 
 const scene = new THREE.Scene();
@@ -65,30 +65,6 @@ const nearPlaneHeight = nearPlaneWidth / camera.aspect;
 rayMarchPlane.scale.set(nearPlaneWidth, nearPlaneHeight, 1);
 
 
-window.addEventListener('keydown', (event) => {
-    switch (event.key) {
-        case 'w': // Move sphere up
-            spherePosition.y += moveSpeed;
-            break;
-        case 's': // Move sphere down
-            spherePosition.y -= moveSpeed;
-            break;
-        case 'a': // Move sphere left
-            spherePosition.x -= moveSpeed;
-            break;
-        case 'd': // Move sphere right
-            spherePosition.x += moveSpeed;
-            break;
-        case 'q': // Move sphere forward
-            spherePosition.z += moveSpeed;
-            break;
-        case 'e': // Move sphere backward
-            spherePosition.z -= moveSpeed;
-            break;
-    }
-});
-
-
 // Uniforms
 const uniforms = {
     u_epsilonValue: { value: 0.0001 },
@@ -111,7 +87,9 @@ const uniforms = {
 
     u_time: { value: 0 },
 
-    u_spherePosition: { value: 0.0 },
+    u_spherePositionX: { value: 0.0 },
+    u_spherePositionY: { value: 0.0 },
+    u_spherePositionZ: { value: 0.0 },
 };
 material.uniforms = uniforms;
 
@@ -152,7 +130,10 @@ uniform float u_ambientIntesity;
 uniform float u_shininess;
 
 uniform float u_time;
-uniform vec3 u_spherePosition;
+uniform float u_spherePositionX;
+uniform float u_spherePositionY;
+uniform float u_spherePositionZ;
+
 
 
 float smin(float a, float b, float k) {
@@ -173,7 +154,7 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 float scene(vec3 currentPosition){
 
     float torus = sdTorus(currentPosition, vec2(1.0, 0.2));
-    float spheres = sphere(currentPosition, vec3(u_spherePosition.x, u_spherePosition.y, u_spherePosition.z), 0.3);
+    float spheres = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.3);
 
     return smin(torus, spheres, 0.2);
 }
@@ -202,7 +183,7 @@ vec3 sceneCol(vec3 currentPosition){
     vec3 color2 = vec3(1.0, 0.0, 0.0);
 
     float torusDist = sdTorus(currentPosition, vec2(1.0, 0.2));
-    float spheresDist = sphere(currentPosition, vec3(u_spherePosition.x, u_spherePosition.y, u_spherePosition.z), 0.3);
+    float spheresDist = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.3);
 
     float threshold = 0.1;
     float blendFactor = smoothstep(-threshold, threshold, abs(torusDist - spheresDist));
@@ -286,6 +267,6 @@ const animate = () => {
 
     controls.update();
 
-    uniforms.u_spherePosition.value = spherePosition;
+    //uniforms.u_spherePosition.value = spherePosition;
 }
 animate();
