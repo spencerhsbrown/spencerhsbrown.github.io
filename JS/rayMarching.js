@@ -25,9 +25,9 @@ class SliderControl {
 
 // Create slider instances
 const sliders = [
-    new SliderControl("shinynessRange", "shinynessTextValue", "u_spherePositionX"),
-    new SliderControl("ambientIntesityRange", "ambientIntesityTextValue", "u_spherePositionY"),
-    new SliderControl("specIntensityRange", "specIntensityTextValue", "u_spherePositionZ"),
+    new SliderControl("xRange", "xTextValue", "u_spherePositionX"),
+    new SliderControl("yRange", "yTextValue", "u_spherePositionY"),
+    new SliderControl("zRange", "zTextValue", "u_spherePositionZ"),
     new SliderControl("diffIntesityRange", "diffIntesityTextValue", "u_diffIntesity"),
     new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps")
 ];
@@ -267,6 +267,5 @@ const animate = () => {
 
     controls.update();
 
-    //uniforms.u_spherePosition.value = spherePosition;
 }
 animate();
