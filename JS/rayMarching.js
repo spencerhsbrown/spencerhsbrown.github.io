@@ -29,7 +29,7 @@ const sliders = [
     new SliderControl("ambientIntesityRange", "ambientIntesityTextValue", "u_ambientIntesity"),
     new SliderControl("specIntensityRange", "specIntensityTextValue", "u_specIntensity"),
     new SliderControl("diffIntesityRange", "diffIntesityTextValue", "u_diffIntesity"),
-    new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps")
+    new SliderControl("maxStepsRange", "maxStepsTextValue", "u_spherePosition.x")
 ];
 
 const scene = new THREE.Scene();
