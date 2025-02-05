@@ -28,7 +28,6 @@ const sliders = [
     new SliderControl("xRange", "xTextValue", "u_spherePositionX"),
     new SliderControl("yRange", "yTextValue", "u_spherePositionY"),
     new SliderControl("zRange", "zTextValue", "u_spherePositionZ"),
-    new SliderControl("diffIntesityRange", "diffIntesityTextValue", "u_diffIntesity"),
     new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps")
 ];
 
