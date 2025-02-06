@@ -88,7 +88,7 @@ const uniforms = {
     u_time: { value: 0 },
 
     u_spherePositionX: { value: 0.0 },
-    u_spherePositionY: { value: 0.0 },
+    u_spherePositionY: { value: 2.0 },
     u_spherePositionZ: { value: 0.0 },
     u_shapeSelected: {value: 1},
 };
@@ -198,7 +198,7 @@ vec3 sceneCol(vec3 currentPosition){
     vec3 color2 = vec3(1.0, 0.0, 0.0);
 
     float selectedShape = currentShape(currentPosition);
-    float spheresDist = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.3);
+    float spheresDist = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
 
     float threshold = 0.1;
     float blendFactor = smoothstep(-threshold, threshold, abs(selectedShape - spheresDist));
