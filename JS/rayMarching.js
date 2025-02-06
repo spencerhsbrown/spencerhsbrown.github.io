@@ -88,7 +88,7 @@ const uniforms = {
     u_time: { value: 0 },
 
     u_spherePositionX: { value: 0.0 },
-    u_spherePositionY: { value: 2.0 },
+    u_spherePositionY: { value: 1.0 },
     u_spherePositionZ: { value: 0.0 },
     u_shapeSelected: {value: 1},
 };
