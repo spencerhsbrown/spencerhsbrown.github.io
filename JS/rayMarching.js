@@ -28,7 +28,8 @@ const sliders = [
     new SliderControl("xRange", "xTextValue", "u_spherePositionX"),
     new SliderControl("yRange", "yTextValue", "u_spherePositionY"),
     new SliderControl("zRange", "zTextValue", "u_spherePositionZ"),
-    new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps")
+    new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps"),
+    new SliderControl("shapeSelectedRange", "shapeSelectedTextValue", "u_shapeSelected")
 ];
 
 const scene = new THREE.Scene();
@@ -89,6 +90,7 @@ const uniforms = {
     u_spherePositionX: { value: 0.0 },
     u_spherePositionY: { value: 0.0 },
     u_spherePositionZ: { value: 0.0 },
+    u_shapeSelected: {value: 1},
 };
 material.uniforms = uniforms;
 
@@ -132,14 +134,24 @@ uniform float u_time;
 uniform float u_spherePositionX;
 uniform float u_spherePositionY;
 uniform float u_spherePositionZ;
-
+uniform int u_shapeSelected;
 
 
 float smin(float a, float b, float k) {
     float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
     return mix(b, a, h) - k * h * (1.0 - h);
 }
-
+float currentShape(vec3 currentPosition)
+{
+    if(u_shapeSelected == 2)
+    {
+        return sdTorus(currentPosition, vec2(2.,1.));
+    }
+    else
+    {
+        return sphere(currentPosition,vec3(0.0),1.0);
+    }
+}
 float sdTorus(vec3 currentPosition, vec2 radius)
 {
   vec2 q = vec2(length(currentPosition.xy) - radius.x, currentPosition.z);
@@ -152,10 +164,10 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
 
 float scene(vec3 currentPosition){
 
-    float torus = sdTorus(currentPosition, vec2(1.0, 0.2));
+    float selectedShape = currentShape(currentPosition);
     float spheres = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.3);
 
-    return smin(torus, spheres, 0.2);
+    return smin(selectedShape, spheres, 0.2);
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
