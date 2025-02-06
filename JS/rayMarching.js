@@ -157,11 +157,11 @@ float currentShape(vec3 currentPosition)
     float shape;
     if(u_shapeSelected == 2)
     {
-        shape = sdTorus(currentPosition, vec2(2.,1.));
+        shape = sdTorus(currentPosition, vec2(1.5,0.5));
     }
     else
     {
-        shape= sphere(currentPosition,vec3(0.0),1.0);
+        shape = sphere(currentPosition,vec3(0.0),1.0);
     }
     return shape;
 }
@@ -169,7 +169,7 @@ float currentShape(vec3 currentPosition)
 float scene(vec3 currentPosition){
 
     float selectedShape = currentShape(currentPosition);
-    float spheres = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.3);
+    float spheres = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
 
     return smin(selectedShape, spheres, 0.2);
 }
@@ -197,16 +197,16 @@ vec3 sceneCol(vec3 currentPosition){
     vec3 color1 = vec3(0.0, 0.0, 1.0);
     vec3 color2 = vec3(1.0, 0.0, 0.0);
 
-    float torusDist = sdTorus(currentPosition, vec2(1.0, 0.2));
+    float selectedShape = currentShape(currentPosition);
     float spheresDist = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.3);
 
     float threshold = 0.1;
-    float blendFactor = smoothstep(-threshold, threshold, abs(torusDist - spheresDist));
+    float blendFactor = smoothstep(-threshold, threshold, abs(selectedShape - spheresDist));
 
-    if (torusDist < spheresDist) {
+    if (selectedShape < spheresDist) {
         return mix(color1, color2, blendFactor);
     }
-    else if (spheresDist < torusDist) {
+    else if (spheresDist < selectedShape) {
         return mix(color2, color1, blendFactor);
     }
     else {
