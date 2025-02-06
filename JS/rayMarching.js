@@ -141,8 +141,19 @@ float smin(float a, float b, float k) {
     float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
     return mix(b, a, h) - k * h * (1.0 - h);
 }
+
 float currentShape(vec3 currentPosition)
 {
+    float sdTorus(vec3 currentPosition, vec2 radius)
+{
+  vec2 q = vec2(length(currentPosition.xy) - radius.x, currentPosition.z);
+    return length(q) - radius.y;
+}
+
+float sphere(vec3 currentPosition, vec3 center, float radius) {
+    return distance(currentPosition, center) - radius;
+}
+
     if(u_shapeSelected == 2)
     {
         return sdTorus(currentPosition, vec2(2.,1.));
@@ -152,6 +163,7 @@ float currentShape(vec3 currentPosition)
         return sphere(currentPosition,vec3(0.0),1.0);
     }
 }
+
 float sdTorus(vec3 currentPosition, vec2 radius)
 {
   vec2 q = vec2(length(currentPosition.xy) - radius.x, currentPosition.z);
