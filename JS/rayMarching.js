@@ -11,9 +11,9 @@ var checkbox = document.getElementById("movementCheckBox");
 checkbox.addEventListener("change", function () {
     if (checkbox.checked) {
         console.log("Checkbox is checked");
-        uniforms.u_movementEnabled.value == true;
+        uniforms.u_movementEnabled.value == 0;
     } else {
-        uniforms.u_movementEnabled.value == false;
+        uniforms.u_movementEnabled.value == 1;
         console.log("Checkbox is not checked");
     }
 });
@@ -114,7 +114,7 @@ const uniforms = {
     u_spherePositionZ: { value: 0.0 },
     u_shapeSelected: { value: 1 },
     u_shapeModifier: { value: 0.5 },
-    u_movementEnabled: {value: false},
+    u_movementEnabled: {value: 1},
 };
 material.uniforms = uniforms;
 
