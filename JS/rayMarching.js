@@ -266,7 +266,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 vec3 sceneCol(vec3 currentPosition){
 
     vec3 color1 = vec3(0.0, 0.0, 1.0);
-    vec3 color2 = vec3(1.0, 0.0, 0.0);
+    vec3 color2 = vec3(0.0, 1.0, 0.0);
 
     float selectedShape = currentShape(currentPosition);
     float spheresDist = movingSphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
