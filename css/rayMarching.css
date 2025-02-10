@@ -27,6 +27,7 @@ canvas
 
 .sliderContainer
 {
+    width:100Vh;
     position:absolute;
     z-index:1;
 }
