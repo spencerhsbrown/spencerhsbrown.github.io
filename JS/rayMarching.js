@@ -171,7 +171,7 @@ float currentShape(vec3 currentPosition)
     }
     else if(u_shapeSelected == 3)
     {
-        shape = boxFrame(currentPosition, vec3(1.0), 0.25);
+        shape = boxFrame(currentPosition, vec3(1.0), 0.1);
     }
     else
     {
