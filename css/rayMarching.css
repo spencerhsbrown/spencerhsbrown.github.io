@@ -29,14 +29,14 @@ canvas
 .leftHandSliders
 {
     float:left;
-    width:40%;
     z-index:1;
+    position:relative;
 }
 
 .rightHandSliders {
-    float:right;
-    width: 40%;
+    float: right;
     z-index: 1;
+    position: relative;
 }
 
 .valueSlider 
