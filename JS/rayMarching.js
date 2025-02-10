@@ -11,12 +11,15 @@ var checkbox = document.getElementById("movementCheckBox");
 checkbox.addEventListener("change", function () {
     if (checkbox.checked) {
         console.log("Checkbox is checked");
+        uniforms.u_movementEnabled == true;
     } else {
+        uniforms.u_movementEnabled == false;
         console.log("Checkbox is not checked");
     }
 });
        
-    //if (checkBox.checked == true) {
+//if (checkBox.checked == true) {
+
     //    uniforms.u_movementEnabled == true;
     //} else {
      //   uniforms.u_movementEnabled == false;
