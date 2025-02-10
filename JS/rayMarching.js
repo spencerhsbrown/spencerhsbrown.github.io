@@ -52,6 +52,7 @@ const sliders = [
     new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps"),
     new SliderControl("shapeSelectedRange", "shapeSelectedTextValue", "u_shapeSelected"),
     new SliderControl("modifierRange", "modifierTextValue", "u_shapeModifier"),
+    new SliderControl("blendFactorRange","blendFactorTextValue","u_blendFactor"),
 ];
 
 const scene = new THREE.Scene();
@@ -114,7 +115,8 @@ const uniforms = {
     u_spherePositionZ: { value: 0.0 },
     u_shapeSelected: { value: 1 },
     u_shapeModifier: { value: 0.5 },
-    u_movementEnabled: {value: 0},
+    u_movementEnabled: { value: 0 },
+    u_blendFactor: {value: 0.2},
 };
 material.uniforms = uniforms;
 
@@ -160,6 +162,7 @@ uniform float u_spherePositionY;
 uniform float u_spherePositionZ;
 uniform int u_shapeSelected;
 uniform float u_shapeModifier;
+uniform float u_blendFactor;
 uniform bool u_movementEnabled;
 
 //shape SDF's
@@ -239,7 +242,7 @@ float scene(vec3 currentPosition){
     float selectedShape = currentShape(currentPosition);
     float spheres = movingSphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
 
-    return smin(selectedShape, spheres, 0.2);
+    return smin(selectedShape, spheres, u_blendFactor);
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
