@@ -11,9 +11,9 @@ var checkbox = document.getElementById("movementCheckBox");
 checkbox.addEventListener("change", function () {
     if (checkbox.checked) {
         console.log("Checkbox is checked");
-        uniforms.u_movementEnabled == true;
+        uniforms.u_movementEnabled.value == true;
     } else {
-        uniforms.u_movementEnabled == false;
+        uniforms.u_movementEnabled.value == false;
         console.log("Checkbox is not checked");
     }
 });
