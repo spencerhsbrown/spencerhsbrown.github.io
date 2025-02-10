@@ -29,7 +29,8 @@ const sliders = [
     new SliderControl("yRange", "yTextValue", "u_spherePositionY"),
     new SliderControl("zRange", "zTextValue", "u_spherePositionZ"),
     new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps"),
-    new SliderControl("shapeSelectedRange", "shapeSelectedTextValue", "u_shapeSelected")
+    new SliderControl("shapeSelectedRange", "shapeSelectedTextValue", "u_shapeSelected"),
+    new SliderControl("modifierRange", "modifierTextValue", "u_shapeModifier"),
 ];
 
 const scene = new THREE.Scene();
@@ -90,7 +91,8 @@ const uniforms = {
     u_spherePositionX: { value: 0.0 },
     u_spherePositionY: { value: 1.0 },
     u_spherePositionZ: { value: 0.0 },
-    u_shapeSelected: {value: 1},
+    u_shapeSelected: { value: 1 },
+    u_shapeModifier: {value: 0.5},
 };
 material.uniforms = uniforms;
 
@@ -135,6 +137,7 @@ uniform float u_spherePositionX;
 uniform float u_spherePositionY;
 uniform float u_spherePositionZ;
 uniform int u_shapeSelected;
+uniform float u_shapeModifier;
 
 //shape SDF's
 float sdTorus(vec3 currentPosition, vec2 radius)
@@ -157,6 +160,20 @@ float boxFrame( vec3 p, vec3 b, float e )
       length(max(vec3(q.x,q.y,p.z),0.0))+min(max(q.x,max(q.y,p.z)),0.0));
 }
 
+float sdOctahedron( vec3 p, float s )
+{
+  p = abs(p);
+  float m = p.x+p.y+p.z-s;
+  vec3 q;
+       if( 3.0*p.x < m ) q = p.xyz;
+  else if( 3.0*p.y < m ) q = p.yzx;
+  else if( 3.0*p.z < m ) q = p.zxy;
+  else return m*0.57735027;
+
+  float k = clamp(0.5*(q.z-q.y+s),0.0,s);
+  return length(vec3(q.x,q.y-s+k,q.z-k));
+}
+
 float smin(float a, float b, float k) {
     float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
     return mix(b, a, h) - k * h * (1.0 - h);
@@ -167,15 +184,19 @@ float currentShape(vec3 currentPosition)
     float shape;
     if(u_shapeSelected == 2)
     {
-        shape = sdTorus(currentPosition, vec2(1.5,0.5));
+        shape = sdTorus(currentPosition, vec2(u_shapeModifier,0.5));
     }
     else if(u_shapeSelected == 3)
     {
-        shape = boxFrame(currentPosition, vec3(1.0), 0.1);
+        shape = boxFrame(currentPosition, vec3(u_shapeModifier), 0.1);
+    }
+    else if(u_shapeSelected == 4)
+    {
+        shape = sdOctahedron(currentPosition, u_shapeModifier);
     }
     else
     {
-        shape = sphere(currentPosition,vec3(0.0),1.0);
+        shape = sphere(currentPosition,vec3(0.0), u_shapeModifier);
     }
     return shape;
 }
