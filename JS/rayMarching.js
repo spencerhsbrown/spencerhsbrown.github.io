@@ -162,9 +162,9 @@ float sdTorus(vec3 currentPosition, vec2 radius)
 }
 
 float sphere(vec3 currentPosition, vec3 center, float radius) {
-    if(movementEnabled)
+    if(u_movementEnabled)
     {
-        return distance(currentPosition, center-(vec3(sin(u_time), cos(u_time), 0))))-radius;
+        return distance(currentPosition, center-(vec3(sin(u_time), cos(u_time), 0)))-radius;
     }
     else
     {
