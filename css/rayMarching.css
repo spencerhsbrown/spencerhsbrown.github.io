@@ -30,14 +30,12 @@ canvas
 {
     float:left;
     width:40%;
-    position:absolute;
     z-index:1;
 }
 
 .rightHandSliders {
     float:right;
     width: 40%;
-    position: absolute;
     z-index: 1;
 }
 
