@@ -15,13 +15,15 @@
 </head>
 <body>
 	<div class="sliderContainer">
-		<div class="valueSlider" style="float:right;">
-			<input type="range" min="0.1" max="5" value="0.5" class="slider" step="0.01" id="modifierRange">
-			<p>Modifier Value: <span id="modifierTextValue"></span></p>
-		</div>
-		<div class="valueSlider" style="float:right;">
-			<input type="range" min="1" max="4" value="1" class="slider" id="shapeSelectedRange">
-			<p>Shape Selected: <span id="shapeSelectedTextValue"></span></p>
+		<div style="float:right;">
+			<div class="valueSlider">
+				<input type="range" min="0.1" max="5" value="0.5" class="slider" step="0.01" id="modifierRange">
+				<p>Modifier Value: <span id="modifierTextValue"></span></p>
+			</div>
+			<div class="valueSlider">
+				<input type="range" min="1" max="4" value="1" class="slider" id="shapeSelectedRange">
+				<p>Shape Selected: <span id="shapeSelectedTextValue"></span></p>
+			</div>
 		</div>
 		<div class="valueSlider">
 			<input type="range" min="-5" max="5" value="0" class="slider" step="0.01" id="xRange">
