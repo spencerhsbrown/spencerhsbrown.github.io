@@ -266,7 +266,7 @@ vec3 sceneCol(vec3 currentPosition){
     vec3 color2 = vec3(1.0, 0.0, 0.0);
 
     float selectedShape = currentShape(currentPosition);
-    float spheresDist = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
+    float spheresDist = movingSphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
 
     float threshold = 0.1;
     float blendFactor = smoothstep(-threshold, threshold, abs(selectedShape - spheresDist));
