@@ -4,6 +4,19 @@ import * as THREE from 'https://esm.sh/three';
 import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitControls";;
 
 //value sliders for controlling visuals start here
+
+function myFunction() {
+    // Get the checkbox
+    var checkBox = document.getElementById("myCheck");
+
+    // If the checkbox is checked, display the output text
+    if (checkBox.checked == true) {
+        uniforms.u_movementEnabled == true;
+    } else {
+        uniforms.u_movementEnabled == false;
+    }
+} 
+
 class SliderControl {
     constructor(sliderId, outputId, uniformProperty) {
         this.slider = document.getElementById(sliderId);
@@ -92,7 +105,8 @@ const uniforms = {
     u_spherePositionY: { value: 1.0 },
     u_spherePositionZ: { value: 0.0 },
     u_shapeSelected: { value: 1 },
-    u_shapeModifier: {value: 0.5},
+    u_shapeModifier: { value: 0.5 },
+    u_movementEnabled: {value: false},
 };
 material.uniforms = uniforms;
 
@@ -138,6 +152,7 @@ uniform float u_spherePositionY;
 uniform float u_spherePositionZ;
 uniform int u_shapeSelected;
 uniform float u_shapeModifier;
+uniform bool u_movementEnabled;
 
 //shape SDF's
 float sdTorus(vec3 currentPosition, vec2 radius)
@@ -147,7 +162,14 @@ float sdTorus(vec3 currentPosition, vec2 radius)
 }
 
 float sphere(vec3 currentPosition, vec3 center, float radius) {
+    if(movementEnabled)
+    {
+        return distance(currentPosition, center-(vec3(sin(u_time), cos(u_time), 0))))-radius;
+    }
+    else
+    {
     return distance(currentPosition, center) - radius;
+    }
 }
 
 float boxFrame( vec3 p, vec3 b, float e )
