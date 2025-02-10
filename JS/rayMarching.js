@@ -147,6 +147,16 @@ float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
 
+float boxFrame( vec3 p, vec3 b, float e )
+{
+       p = abs(p  )-b;
+  vec3 q = abs(p+e)-e;
+  return min(min(
+      length(max(vec3(p.x,q.y,q.z),0.0))+min(max(p.x,max(q.y,q.z)),0.0),
+      length(max(vec3(q.x,p.y,q.z),0.0))+min(max(q.x,max(p.y,q.z)),0.0)),
+      length(max(vec3(q.x,q.y,p.z),0.0))+min(max(q.x,max(q.y,p.z)),0.0));
+}
+
 float smin(float a, float b, float k) {
     float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
     return mix(b, a, h) - k * h * (1.0 - h);
@@ -158,6 +168,10 @@ float currentShape(vec3 currentPosition)
     if(u_shapeSelected == 2)
     {
         shape = sdTorus(currentPosition, vec2(1.5,0.5));
+    }
+    else if(u_shapeSelected == 3)
+    {
+        shape = boxFrame(currentPosition, vec3(1.0), 0.25);
     }
     else
     {
