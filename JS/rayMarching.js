@@ -170,6 +170,9 @@ float sdTorus(vec3 currentPosition, vec2 radius)
 }
 
 float sphere(vec3 currentPosition, vec3 center, float radius) {
+    return distance(currentPosition, center) - radius;
+}
+float movingSphere(vec3 currentPosition, vec3 center, float radius) {
     if(u_movementEnabled)
     {
         return distance(currentPosition, center-(vec3(sin(u_time), cos(u_time), 0)))-radius;
@@ -234,7 +237,7 @@ float currentShape(vec3 currentPosition)
 float scene(vec3 currentPosition){
 
     float selectedShape = currentShape(currentPosition);
-    float spheres = sphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
+    float spheres = movingSphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
 
     return smin(selectedShape, spheres, 0.2);
 }
