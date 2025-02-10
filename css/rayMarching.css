@@ -9,6 +9,7 @@ html {
 
 body
 {
+    width:100vw;
     margin:0;
     position:absolute;
 
@@ -25,11 +26,19 @@ canvas
     position:absolute;
 }
 
-.sliderContainer
+.leftHandSliders
 {
-    width:100Vw;
+    float:left;
+    width:40%;
     position:absolute;
     z-index:1;
+}
+
+.rightHandSliders {
+    float:right;
+    width: 40%;
+    position: absolute;
+    z-index: 1;
 }
 
 .valueSlider 
