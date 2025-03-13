@@ -17,7 +17,7 @@ body {
 }
 .contentContainer
 {
-    width:100vw;
+    width:20vw;
     position:absolute;
     z-index:2;
 }
