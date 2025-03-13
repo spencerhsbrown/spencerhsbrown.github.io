@@ -18,13 +18,6 @@ checkbox.addEventListener("change", function () {
     }
 });
        
-//if (checkBox.checked == true) {
-
-    //    uniforms.u_movementEnabled == true;
-    //} else {
-     //   uniforms.u_movementEnabled == false;
-   // } 
-
 class SliderControl {
     constructor(sliderId, outputId, uniformProperty) {
         this.slider = document.getElementById(sliderId);
