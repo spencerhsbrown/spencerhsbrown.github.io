@@ -100,10 +100,18 @@ uniform float u_shininess;
 uniform float u_time;
 
 
-float sdBox( vec3 p, vec3 b )
+float sdOctahedron( vec3 p, float s )
 {
-  vec3 q = abs(p) - b;
-  return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
+  p = abs(p);
+  float m = p.x+p.y+p.z-s;
+  vec3 q;
+       if( 3.0*p.x < m ) q = p.xyz;
+  else if( 3.0*p.y < m ) q = p.yzx;
+  else if( 3.0*p.z < m ) q = p.zxy;
+  else return m*0.57735027;
+
+  float k = clamp(0.5*(q.z-q.y+s),0.0,s);
+  return length(vec3(q.x,q.y-s+k,q.z-k));
 }
 
 float sphere(vec3 currentPosition, vec3 center, float radius) {
@@ -116,7 +124,7 @@ float smin(float a, float b, float k) {
 }
 
 float scene(vec3 currentPosition){
-    float cube = sdBox(currentPosition, vec3(1.0));
+    float cube = sdOctahedron(currentPosition, 1.0);
     float sphere = sphere(currentPosition, vec3(0.0), 0.7);
     return mix(sphere, cube, 0.5);
 
