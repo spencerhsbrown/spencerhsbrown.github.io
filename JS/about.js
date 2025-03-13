@@ -54,7 +54,7 @@ const uniforms = {
 
     u_diffIntesity: { value: 0.2 },
     u_specIntensity: { value: 0.2 },
-    u_ambientIntesity: { value: 0.2 },
+    u_ambientIntesity: { value: 0.3 },
     u_shininess: { value: 0.2 },
 
     u_time: { value: 0 },
@@ -142,7 +142,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
 vec3 sceneCol(vec3 currentPosition){
 
-    vec3 color1 = vec3(0.0, 0.5, 0.5);
+    vec3 color1 = vec3(0.82, 0.37, 0.93);
 
     return color1;
 
