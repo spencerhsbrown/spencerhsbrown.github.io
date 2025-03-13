@@ -118,7 +118,7 @@ float smin(float a, float b, float k) {
 float scene(vec3 currentPosition){
     float cube = sdBox(currentPosition, vec3(1.0));
     float sphere = sphere(currentPosition, vec3(0.0), 0.7);
-    return mix(sphere, cube, 0.3);
+    return mix(sphere, cube, 0.5);
 
 }
 
