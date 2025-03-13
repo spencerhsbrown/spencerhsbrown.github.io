@@ -5,19 +5,6 @@ import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitC
 
 //value sliders for controlling visuals start here
 
-var checkbox = document.getElementById("movementCheckBox");
-
-// Add an event listener for the 'change' event
-checkbox.addEventListener("change", function () {
-    if (checkbox.checked) {
-        console.log("Checkbox is checked");
-        uniforms.u_movementEnabled.value = 1;
-    } else {
-        uniforms.u_movementEnabled.value = 0;
-        console.log("Checkbox is not checked");
-    }
-});
-
 class SliderControl {
     constructor(sliderId, outputId, uniformProperty) {
         this.slider = document.getElementById(sliderId);
