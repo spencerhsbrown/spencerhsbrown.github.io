@@ -3,37 +3,6 @@
 import * as THREE from 'https://esm.sh/three';
 import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitControls";;
 
-//value sliders for controlling visuals start here
-
-class SliderControl {
-    constructor(sliderId, outputId, uniformProperty) {
-        this.slider = document.getElementById(sliderId);
-        this.output = document.getElementById(outputId);
-        this.uniformProperty = uniformProperty;
-
-        // Set initial value
-        this.output.innerHTML = this.slider.value;
-
-        // Bind event listener
-        this.slider.oninput = () => this.updateValue();
-    }
-
-    updateValue() {
-        this.output.innerHTML = this.slider.value;
-        uniforms[this.uniformProperty].value = parseFloat(this.slider.value);
-    }
-}
-
-// Create slider instances
-const sliders = [
-    new SliderControl("xRange", "xTextValue", "u_spherePositionX"),
-    new SliderControl("yRange", "yTextValue", "u_spherePositionY"),
-    new SliderControl("zRange", "zTextValue", "u_spherePositionZ"),
-    new SliderControl("maxStepsRange", "maxStepsTextValue", "u_maxSteps"),
-    new SliderControl("shapeSelectedRange", "shapeSelectedTextValue", "u_shapeSelected"),
-    new SliderControl("modifierRange", "modifierTextValue", "u_shapeModifier"),
-    new SliderControl("blendFactorRange", "blendFactorTextValue", "u_blendFactor"),
-];
 
 const scene = new THREE.Scene();
 
@@ -89,14 +58,6 @@ const uniforms = {
     u_shininess: { value: 0.2 },
 
     u_time: { value: 0 },
-
-    u_spherePositionX: { value: 0.0 },
-    u_spherePositionY: { value: 1.0 },
-    u_spherePositionZ: { value: 0.0 },
-    u_shapeSelected: { value: 1 },
-    u_shapeModifier: { value: 0.5 },
-    u_movementEnabled: { value: 0 },
-    u_blendFactor: { value: 0.2 },
 };
 material.uniforms = uniforms;
 
@@ -137,57 +98,10 @@ uniform float u_ambientIntesity;
 uniform float u_shininess;
 
 uniform float u_time;
-uniform float u_spherePositionX;
-uniform float u_spherePositionY;
-uniform float u_spherePositionZ;
-uniform int u_shapeSelected;
-uniform float u_shapeModifier;
-uniform float u_blendFactor;
-uniform bool u_movementEnabled;
 
-//shape SDF's
-float sdTorus(vec3 currentPosition, vec2 radius)
-{
-  vec2 q = vec2(length(currentPosition.xy) - radius.x, currentPosition.z);
-    return length(q) - radius.y;
-}
 
 float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
-}
-float movingSphere(vec3 currentPosition, vec3 center, float radius) {
-    if(u_movementEnabled)
-    {
-        return distance(currentPosition, center-(vec3(sin(u_time), cos(u_time), 0)))-radius;
-    }
-    else
-    {
-    return distance(currentPosition, center) - radius;
-    }
-}
-
-float boxFrame( vec3 p, vec3 b, float e )
-{
-       p = abs(p  )-b;
-  vec3 q = abs(p+e)-e;
-  return min(min(
-      length(max(vec3(p.x,q.y,q.z),0.0))+min(max(p.x,max(q.y,q.z)),0.0),
-      length(max(vec3(q.x,p.y,q.z),0.0))+min(max(q.x,max(p.y,q.z)),0.0)),
-      length(max(vec3(q.x,q.y,p.z),0.0))+min(max(q.x,max(q.y,p.z)),0.0));
-}
-
-float sdOctahedron( vec3 p, float s )
-{
-  p = abs(p);
-  float m = p.x+p.y+p.z-s;
-  vec3 q;
-       if( 3.0*p.x < m ) q = p.xyz;
-  else if( 3.0*p.y < m ) q = p.yzx;
-  else if( 3.0*p.z < m ) q = p.zxy;
-  else return m*0.57735027;
-
-  float k = clamp(0.5*(q.z-q.y+s),0.0,s);
-  return length(vec3(q.x,q.y-s+k,q.z-k));
 }
 
 float smin(float a, float b, float k) {
@@ -195,34 +109,11 @@ float smin(float a, float b, float k) {
     return mix(b, a, h) - k * h * (1.0 - h);
 }
 
-float currentShape(vec3 currentPosition)
-{
-    float shape;
-    if(u_shapeSelected == 2)
-    {
-        shape = sdTorus(currentPosition, vec2(u_shapeModifier,0.5));
-    }
-    else if(u_shapeSelected == 3)
-    {
-        shape = boxFrame(currentPosition, vec3(u_shapeModifier), 0.1);
-    }
-    else if(u_shapeSelected == 4)
-    {
-        shape = sdOctahedron(currentPosition, u_shapeModifier);
-    }
-    else
-    {
-        shape = sphere(currentPosition,vec3(0.0), u_shapeModifier);
-    }
-    return shape;
-}
-
 float scene(vec3 currentPosition){
 
-    float selectedShape = currentShape(currentPosition);
-    float spheres = movingSphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
+    float shape = sphere(currentPosition, vec3(0.0), 0.7)
 
-    return smin(selectedShape, spheres, u_blendFactor);
+    return shape;
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
@@ -246,23 +137,8 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 vec3 sceneCol(vec3 currentPosition){
 
     vec3 color1 = vec3(0.0, 0.0, 1.0);
-    vec3 color2 = vec3(0.0, 1.0, 0.0);
 
-    float selectedShape = currentShape(currentPosition);
-    float spheresDist = movingSphere(currentPosition, vec3(u_spherePositionX, u_spherePositionY, u_spherePositionZ), 0.5);
-
-    float threshold = u_blendFactor;
-    float blendFactor = smoothstep(-threshold, threshold, abs(selectedShape - spheresDist));
-
-    if (selectedShape < spheresDist) {
-        return mix(color1, color2, blendFactor);
-    }
-    else if (spheresDist < selectedShape) {
-        return mix(color2, color1, blendFactor);
-    }
-    else {
-        return vec3(0.1, 0.1, 0.1);
-    }
+    return color1;
 
 }
 
