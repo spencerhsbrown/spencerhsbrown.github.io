@@ -111,9 +111,8 @@ float smin(float a, float b, float k) {
 
 float scene(vec3 currentPosition){
 
-    float shape = sphere(currentPosition, vec3(0.0), 0.7)
+    return sphere(currentPosition, vec3(0.0), 0.7);
 
-    return shape;
 }
 
 float rayMarch(vec3 rayOrigin, vec3 rayDirection)
