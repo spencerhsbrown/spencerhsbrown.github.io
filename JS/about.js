@@ -100,6 +100,12 @@ uniform float u_shininess;
 uniform float u_time;
 
 
+float sdBox( vec3 p, vec3 b )
+{
+  vec3 q = abs(p) - b;
+  return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
+}
+
 float sphere(vec3 currentPosition, vec3 center, float radius) {
     return distance(currentPosition, center) - radius;
 }
@@ -110,8 +116,9 @@ float smin(float a, float b, float k) {
 }
 
 float scene(vec3 currentPosition){
-
-    return sphere(currentPosition, vec3(0.0), 0.7);
+    float cube = sdBox(currentPosition, vec3(1.0));
+    float sphere = sphere(currentPosition, vec3(0.0), 0.7);
+    return mix(sphere, cube, 0.3);
 
 }
 
