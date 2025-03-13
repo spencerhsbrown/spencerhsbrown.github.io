@@ -135,7 +135,7 @@ float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 
 vec3 sceneCol(vec3 currentPosition){
 
-    vec3 color1 = vec3(0.0, 0.0, 1.0);
+    vec3 color1 = vec3(0.0, 0.5, 0.5);
 
     return color1;
 
