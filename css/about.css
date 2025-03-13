@@ -17,6 +17,8 @@ body {
 }
 .contentContainer
 {
+    overflow:scroll;
+    height:100Vh;
     width:20vw;
     position:absolute;
     z-index:2;
