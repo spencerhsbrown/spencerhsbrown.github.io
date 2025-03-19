@@ -29,11 +29,11 @@ sphere.receiveShadow = false; //default
 scene.add(sphere);
 
 //Create a plane that receives shadows (but does not cast them)
-const planeGeometry = new THREE.PlaneGeometry(20, 20, 32, 32);
-const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 })
-const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-plane.receiveShadow = true;
-scene.add(plane);
+//const planeGeometry = new THREE.PlaneGeometry(20, 20, 32, 32);
+//const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 })
+//const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+//plane.receiveShadow = true;
+//scene.add(plane);
 
 
 camera.position.z = 7;
