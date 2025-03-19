@@ -28,7 +28,7 @@ light.shadow.camera.near = 0.5; // default
 light.shadow.camera.far = 500; // default
 
 
-const sphereGeometry = new THREE.SphereGeometry(5, 32, 32);
+const sphereGeometry = new THREE.SphereGeometry(3, 32, 32);
 const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 sphere.castShadow = true; //default is false
