@@ -37,7 +37,7 @@ scene.add(sphere);
 
 
 camera.position.z = 7;
-camrea.position.y = 4;
+camera.position.y = 4;
 camera.lookAt(0, 0, 0);
 
 function animate() {
