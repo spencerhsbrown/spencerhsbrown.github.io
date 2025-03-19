@@ -19,7 +19,7 @@ body {
 {
     overflow:scroll;
     height:100Vh;
-    width:20vw;
+    width:100vw;
     position:absolute;
     z-index:2;
 }
