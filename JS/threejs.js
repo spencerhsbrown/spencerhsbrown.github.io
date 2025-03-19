@@ -12,13 +12,13 @@ document.body.appendChild(renderer.domElement);
 const geometry = new THREE.SphereGeometry(15, 32, 16);
 const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
 const sphere = new THREE.Mesh(geometry, material);
+scene.add(sphere);
 
 const scenecolor = new THREE.Color(0x33e0ff);
 
 const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
 
 scene.background = scenecolor;
-scene.add(sphere);
 
 camera.position.z = 5; 
 
