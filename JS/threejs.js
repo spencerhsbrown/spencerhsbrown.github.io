@@ -15,8 +15,9 @@ scene.add(cube);
 
 const scenecolor = new THREE.Color(0x33e0ff);
 
-const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+const directionalLight = new THREE.directionalLight(0x404040, 0.5); // Soft white light
 
+scene.add(directionalLight);
 scene.background = scenecolor;
 
 camera.position.z = 5; 
