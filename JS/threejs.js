@@ -21,7 +21,7 @@ scene.add(light);
 scene.background = scenecolor;
 
 
-const sphereGeometry = new THREE.SphereGeometry(3, 32, 32);
+const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
 const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 sphere.castShadow = true; //default is false
