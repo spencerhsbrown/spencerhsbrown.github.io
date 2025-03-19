@@ -20,23 +20,7 @@ const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
 scene.background = scenecolor;
 scene.add(sphere);
 
-camera.position.z = 5;  
-
-import WebGL from 'three/addons/capabilities/WebGL.js';
-
-if ( WebGL.isWebGLAvailable() ) {
-
-	// Initiate function or other initializations here
-	animate();
-
-} else {
-
-	const warning = WebGL.getWebGLErrorMessage();
-	document.getElementById( 'container' ).appendChild( warning );
-
-}
-
-
+camera.position.z = 5; 
 
 function animate() {
 
