@@ -33,7 +33,8 @@ const planeGeometry = new THREE.PlaneGeometry(20, 20, 32, 32);
 const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 })
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 plane.receiveShadow = true;
-plane.rotateX((3*Math.PI)/2);
+plane.rotateX((3 * Math.PI) / 2);
+plane.position.y = -2;
 scene.add(plane);
 
 
