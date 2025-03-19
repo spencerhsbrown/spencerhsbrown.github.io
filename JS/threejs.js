@@ -5,7 +5,6 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 
 const renderer = new THREE.WebGLRenderer();
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -14,18 +13,12 @@ document.body.appendChild(renderer.domElement);
 
 const scenecolor = new THREE.Color(0x33e0ff);
 
-const light = new THREE.DirectionalLight(0x404040, 0.5); // Soft white light
+const light = new THREE.DirectionalLight(0x404040, 1.5); // Soft white light
 light.castShadow = true;
 
 
 scene.add(light);
 scene.background = scenecolor;
-
-
-light.shadow.mapSize.width = 512; // default
-light.shadow.mapSize.height = 512; // default
-light.shadow.camera.near = 0.5; // default
-light.shadow.camera.far = 500; // default
 
 
 const sphereGeometry = new THREE.SphereGeometry(3, 32, 32);
