@@ -8,13 +8,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setAnimationLoop(animate);
 document.body.appendChild(renderer.domElement);
 
-//objects
-//const geometry = new THREE.SphereGeometry(15, 32, 16);
-//const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-//const sphere = new THREE.Mesh(geometry, material);
-//scene.add(sphere);
-
-const geometry = new THREE.SphereGeometry(15, 32, 16);;
+const geometry = new THREE.SphereGeometry(2, 32, 16);;
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
