@@ -36,7 +36,9 @@ plane.receiveShadow = true;
 scene.add(plane);
 
 
-camera.position.z = 7; 
+camera.position.z = 7;
+camrea.position.y = 4;
+camera.lookAt(0, 0, 0);
 
 function animate() {
 
