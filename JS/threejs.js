@@ -14,7 +14,7 @@ document.body.appendChild(renderer.domElement);
 
 const scenecolor = new THREE.Color(0x33e0ff);
 
-const light = new THREE.directionalLight(0x404040, 0.5); // Soft white light
+const light = new THREE.DirectionalLight(0x404040, 0.5); // Soft white light
 light.castShadow = true;
 
 
